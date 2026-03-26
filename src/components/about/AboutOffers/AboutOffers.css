@@ -1,61 +1,98 @@
 .what-we-offer {
-    margin-bottom: 80px;
-    animation: fadeInUp 0.6s ease-out both;
+    padding: 100px 20px;
+    background: #f8fafc;
 }
 
-.what-we-offer h2 {
-    font-size: 32px;
-    font-weight: 700;
+.offer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.what-we-offer .section-title {
+    font-size: 42px;
+    font-weight: 800;
     color: #0f3d91;
-    margin: 0 0 24px 0;
+    margin-bottom: 60px;
+    text-align: center;
 }
 
 .offer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 32px;
-    margin-top: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
 }
 
 .offer-card {
     background: #fff;
-    padding: 32px 24px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(15, 61, 145, 0.05);
 }
 
 .offer-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(15, 61, 145, 0.1);
+    border-color: #0f3d91;
 }
 
 .offer-icon {
-    margin-bottom: 20px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #0f3d91, #1e5bb8);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-bottom: 24px;
 }
 
 .offer-card h3 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #333;
-    margin: 0 0 12px 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f3d91;
+    margin: 0 0 16px 0;
 }
 
 .offer-card p {
-    font-size: 15px;
-    color: #666;
-    line-height: 1.6;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #444;
     margin: 0;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+.assistance-details {
+    margin-top: 16px;
+}
+
+.assistance-details ul {
+    margin: 12px 0 20px 0;
+    padding-left: 20px;
+}
+
+.assistance-details li {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.assistance-notice {
+    font-size: 14px !important;
+    font-style: italic;
+    color: #64748b !important;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 16px;
+}
+
+@media (max-width: 768px) {
+    .what-we-offer {
+        padding: 60px 20px;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .what-we-offer .section-title {
+        font-size: 32px;
     }
 }

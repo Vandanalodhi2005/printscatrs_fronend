@@ -7,6 +7,7 @@ import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
 import { useCart } from '../context/CartContext';
 import { Eye, ShoppingBag } from 'lucide-react';
+import HomeProductCard from '../components/home/HomeProducts/HomeProductCard';
 import '../styles/pages.css';
 
 const Printers = () => {
@@ -184,81 +185,15 @@ const Printers = () => {
             </p>
           </div>
 
-          {/* Printers Grid - Responsive: 2(mobile), 3(sm), 4(md+) */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-6 pb-8">
+          {/* Printers Grid - Responsive: 1(mobile), 2(sm), 3(md+) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pb-8">
             {filteredAndSortedPrinters.map((printer, index) => (
-              <div
-                key={printer._id || index}
-                className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group relative h-full transform hover:-translate-y-1 block"
-              >
-                {/* Image */}
-                <Link to={`/product/${printer.slug || printer._id}`} className="relative w-full aspect-[4/3] bg-white p-6 flex items-center justify-center overflow-hidden border-b border-slate-50 block">
-                  <img 
-                     src={
-                        printer.image || 
-                        (printer.images && printer.images.length > 0 
-                            ? (printer.images[0].startsWith('http') 
-                                ? printer.images[0] 
-                                : `${import.meta.env.VITE_API_URL?.replace('/api', '') || ''}${printer.images[0]}`)
-                            : 'https://via.placeholder.com/300?text=No+Image')
-                      }
-                    alt={printer.title || printer.name}
-                    className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
-                    onError={(e) => { e.target.src = 'https://via.placeholder.com/300?text=No+Image'; }}
-                    loading="lazy"
-                  />
-                  {printer.countInStock === 0 && (
-                     <div className="absolute top-2 right-2 bg-red-50 text-red-500 text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide border border-red-100">
-                        Out of Stock
-                     </div>
-                  )}
-                </Link>
-
-                {/* Info */}
-                <div className="p-4 flex flex-col flex-1 gap-1">
-                    {/* Brand */}
-                    <div className="flex items-center">
-                        <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full uppercase tracking-wider mb-1">
-                            {printer.brand || 'Printer'}
-                        </span>
-                    </div>
-
-                    {/* Title - Limit to 2 lines */}
-                    <Link to={`/product/${printer.slug || printer._id}`} className="text-sm font-bold text-slate-800 leading-snug group-hover:text-blue-700 transition-colors line-clamp-2 h-10 mb-1" title={printer.title || printer.name}>
-                        {printer.title || printer.name}
-                    </Link>
-                    
-                    {/* Price */}
-                    <div className="mt-auto flex items-end gap-2 pt-2 border-t border-dashed border-slate-100 mb-2">
-                        <span className="text-lg font-black text-slate-900">
-                            ${printer.price?.toFixed(2)}
-                        </span>
-                        {(printer.oldPrice > 0 || printer.originalPrice > 0) && (
-                            <span className="text-xs text-slate-400 line-through mb-1">
-                                ${printer.oldPrice?.toFixed(2) || printer.originalPrice?.toFixed(2)}
-                            </span>
-                        )}
-                    </div>
-                    
-                    {/* Buttons */}
-                    <div className="grid grid-cols-2 gap-3 mt-auto">
-                        <button 
-                            onClick={(e) => handleDetails(e, printer)}
-                            className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold border border-slate-200 text-slate-600 bg-white hover:border-blue-600 hover:text-blue-600 transition-all shadow-sm hover:shadow-md"
-                        >
-                            <Eye size={14} />
-                            Details
-                        </button>
-                        <button 
-                            onClick={(e) => handleBuyNow(e, printer)}
-                            className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold bg-blue-900 text-white border border-blue-900 hover:bg-blue-800 hover:border-blue-800 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
-                        >
-                            <ShoppingBag size={14} />
-                            Buy Now
-                        </button>
-                    </div>
-                </div>
-              </div>
+              <HomeProductCard 
+                key={printer._id || index} 
+                product={printer} 
+                handleDetails={handleDetails} 
+                handleBuyNow={handleBuyNow} 
+              />
             ))}
           </div>
 

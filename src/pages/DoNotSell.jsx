@@ -7,255 +7,161 @@ const DoNotSell = () => {
     return (
         <div className="policy-page-wrapper">
             <Navbar />
-            <main className="policy-main-content">
-                {/* Hero Section */}
-                <div className="policy-hero">
-                    <div className="policy-hero-content">
-                        <h1>Do Not Sell My Personal Information</h1>
-                        <p className="last-updated">Last Updated: January 26, 2026</p>
-                        <p className="intro-text">
-                            Your privacy rights under CCPA/CPRA are important to us. We're committed to transparency
-                            and giving you control over your personal information.
-                        </p>
-                    </div>
+            <main className="policy-simple-container">
+                <div className="policy-simple-header">
+                    <p className="last-updated">Site Policy Profile</p>
+                    <h1>Do Not Sell or Share My Personal Information</h1>
+                    <p className="last-updated">Effective Date: January 26, 2026</p>
                 </div>
 
-                <div className="policy-content-container">
-                    {/* Quick Info Cards */}
-                    <div className="policy-info-cards">
-                        <div className="policy-info-card" style={{ animationDelay: '0.1s' }}>
-                            <div className="icon-wrapper">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
-                                </svg>
-                            </div>
-                            <h3>We Don't Sell Data</h3>
-                            <p>Your information is never sold to third parties</p>
-                        </div>
-
-                        <div className="policy-info-card" style={{ animationDelay: '0.2s' }}>
-                            <div className="icon-wrapper">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                                </svg>
-                            </div>
-                            <h3>Your Rights</h3>
-                            <p>Full CCPA/CPRA privacy rights protection</p>
-                        </div>
-
-                        <div className="policy-info-card" style={{ animationDelay: '0.3s' }}>
-                            <div className="icon-wrapper">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                                </svg>
-                            </div>
-                            <h3>Easy Requests</h3>
-                            <p>Simple process to exercise your rights</p>
-                        </div>
-
-                        <div className="policy-info-card" style={{ animationDelay: '0.4s' }}>
-                            <div className="icon-wrapper">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                                </svg>
-                            </div>
-                            <h3>Transparent</h3>
-                            <p>Clear information about data usage</p>
-                        </div>
+                <div className="policy-simple-content">
+                    <div className="intro">
+                        This page explains your privacy rights under the California Consumer Privacy Act (CCPA) and the California Privacy Rights Act (CPRA). These laws provide California residents with the right to control how their personal information is collected, used, and shared. 
                     </div>
 
-                    {/* Main Content */}
-                    <div className="policy-content-card">
-                        <section className="policy-section">
-                            <h2>We Do NOT Sell or Share Personal Information</h2>
-                            <p>Prints Carts does not sell, share, or exchange personal information for advertising, remarketing,
-                                or commercial data-sharing purposes as defined under CCPA/CPRA.</p>
-
-                            <div className="feature-grid">
-                                <div className="feature-item">
-                                    <h4>❌ No Data Sales</h4>
-                                    <p>We never sell personal information</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>❌ No Ad Sharing</h4>
-                                    <p>No cross-context behavioral advertising</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>❌ No Tracking Cookies</h4>
-                                    <p>No third-party advertising cookies</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>❌ No Retargeting</h4>
-                                    <p>No remarketing systems used</p>
-                                </div>
-                            </div>
-
-                            <p className="policy-note">
-                                Your personal information is used only for essential business functions such as order processing,
-                                secure payments, and customer communication.
-                            </p>
-                        </section>
-
-                        <section className="policy-section">
-                            <h2>Your Privacy Rights Under CCPA/CPRA</h2>
-                            <p>California residents have the following rights:</p>
-
-                            <div className="feature-grid">
-                                <div className="feature-item">
-                                    <h4>📋 Right to Know</h4>
-                                    <p>Request information about personal data we collect, use, disclose, or retain</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>🗑️ Right to Delete</h4>
-                                    <p>Request deletion of your personal information (subject to legal requirements)</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>✏️ Right to Correct</h4>
-                                    <p>Request corrections to inaccurate information we hold</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>🚫 Right to Opt Out</h4>
-                                    <p>Opt out of any sale or sharing of personal information</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>🔒 Limit Sensitive Info</h4>
-                                    <p>Request restrictions on use of sensitive personal information</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>⚖️ Non-Discrimination</h4>
-                                    <p>Equal service regardless of exercising your rights</p>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section className="policy-section">
-                            <h2>How to Submit a Request</h2>
-                            <p>If you wish to exercise any CCPA/CPRA privacy rights:</p>
-
-                            <div className="feature-grid">
-                                <div className="feature-item">
-                                    <h4>📧 Email Request</h4>
-                                    <p><a href="mailto:support@printscarts.com">support@printscarts.com</a></p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>📬 Mail Request</h4>
-                                    <p>7181 Beacon Dr 15<br />Reno, NV 89506</p>
-                                </div>
-                            </div>
-
-                            <h3>Please Include:</h3>
-                            <ul>
-                                <li>Your full name</li>
-                                <li>Your contact email address</li>
-                                <li>The specific request (Access, Delete, Correct, Opt-Out, etc.)</li>
-                                <li>Any relevant account information</li>
-                            </ul>
-
-                            <p className="policy-note">
-                                To protect your privacy, we may request additional information to verify your identity before
-                                processing your request.
-                            </p>
-                        </section>
-
-                        <section className="policy-section">
-                            <h2>Categories of Personal Information</h2>
-                            <p>We collect only information necessary for essential e-commerce operations:</p>
-                            <ul>
-                                <li>Name and contact details</li>
-                                <li>Shipping and billing address</li>
-                                <li>Email for order confirmations</li>
-                                <li>Payment details (processed securely through third-party systems)</li>
-                                <li>Order history and preferences</li>
-                                <li>Basic website session data (non-marketing cookies)</li>
-                            </ul>
-                            <p className="policy-note">
-                                We do not collect biometric, geolocation, or highly sensitive information for marketing purposes.
-                            </p>
-                        </section>
-
-                        <section className="policy-section">
-                            <h2>Purposes for Using Personal Information</h2>
-
-                            <h3>We Use Information For:</h3>
-                            <div className="feature-grid">
-                                <div className="feature-item">
-                                    <h4>✅ Order Processing</h4>
-                                    <p>Fulfillment and delivery</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>✅ Secure Payments</h4>
-                                    <p>Transaction processing</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>✅ Customer Support</h4>
-                                    <p>Assistance and communication</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>✅ Fraud Prevention</h4>
-                                    <p>Security and protection</p>
-                                </div>
-                            </div>
-
-                            <h3>We Do NOT Use For:</h3>
-                            <div className="feature-grid">
-                                <div className="feature-item">
-                                    <h4>❌ Behavioral Advertising</h4>
-                                    <p>No targeted ads</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>❌ Cross-Site Tracking</h4>
-                                    <p>No tracking across websites</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>❌ Selling Data</h4>
-                                    <p>Never sold to third parties</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>❌ Marketing Profiling</h4>
-                                    <p>No automated profiling</p>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section className="policy-section">
-                            <h2>Third-Party Service Providers</h2>
-                            <p>We share data only with essential service providers:</p>
-                            <ul>
-                                <li>Payment processors (for secure transactions)</li>
-                                <li>Shipping carriers (for delivery)</li>
-                                <li>Customer communication tools</li>
-                                <li>Fraud-prevention services</li>
-                                <li>Hosting and IT infrastructure providers</li>
-                            </ul>
-                            <p className="policy-note">
-                                These partners are contractually required to handle information securely and cannot use it for
-                                advertising or resale.
-                            </p>
-                        </section>
-
-                        <section className="policy-section">
-                            <h2>Minors' Information</h2>
-                            <div className="feature-grid">
-                                <div className="feature-item">
-                                    <h4>🚫 Under 13</h4>
-                                    <p>We do not knowingly collect information from children under 13</p>
-                                </div>
-                                <div className="feature-item">
-                                    <h4>🔒 Under 16</h4>
-                                    <p>We do not sell or share data of minors under 16</p>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Contact Section */}
-                        <div className="contact-info-box">
-                            <h3>Questions About Your Privacy Rights?</h3>
-                            <p>📧 Email: <a href="mailto:support@printscarts.com">support@printscarts.com</a></p>
-                            <p>📍 Address: 7181 Beacon Dr 15, Reno, NV 89506</p>
-                            <p>🌐 Website: <a href="https://www.printscarts.com">www.printscarts.com</a></p>
-                            <p>We're committed to responding within a reasonable timeframe.</p>
-                        </div>
+                    <div className="consent">
+                        <strong>Privacy Commitment:</strong> Prints Carts respects your privacy and is committed to handling your personal information responsibly and transparently.
                     </div>
+
+                    <section>
+                        <h2>1. We Do NOT Sell or Share Personal Information</h2>
+                        <p>Prints Carts does not sell, share, or exchange personal information for advertising, remarketing, behavioral tracking, or commercial data-sharing purposes as defined under CCPA/CPRA. We do not:</p>
+                        <ul>
+                            <li>Sell personal information to third parties</li>
+                            <li>Share personal information for cross-context behavioral advertising</li>
+                            <li>Use third-party advertising cookies</li>
+                            <li>Use retargeting or remarketing systems</li>
+                            <li>Transfer data for marketing purposes without consent</li>
+                        </ul>
+                        <p className="important">Notice: Your personal information is used only for essential business functions such as order processing, secure payments, and customer communication.</p>
+                    </section>
+
+                    <section>
+                        <h2>2. Your Privacy Rights Under CCPA/CPRA</h2>
+                        <p>California residents have the following rights:</p>
+                        
+                        <div className="sub-section">
+                            <h4>Right to Know</h4>
+                            <p>You may request information about the personal data we collect, use, disclose, or retain.</p>
+                        </div>
+
+                        <div className="sub-section">
+                            <h4>Right to Delete</h4>
+                            <p>You may request deletion of your personal information, subject to legal requirements.</p>
+                        </div>
+
+                        <div className="sub-section">
+                            <h4>Right to Correct</h4>
+                            <p>You may request corrections to inaccurate information we hold.</p>
+                        </div>
+
+                        <div className="sub-section">
+                            <h4>Right to Opt Out of Sale or Sharing</h4>
+                            <p>You may opt out of any sale or sharing of personal information. (We do not sell or share information, but this right is still offered.)</p>
+                        </div>
+
+                        <div className="sub-section">
+                            <h4>Right to Limit Use of Sensitive Information</h4>
+                            <p>You may request restrictions on the use of sensitive personal information.</p>
+                        </div>
+
+                        <div className="sub-section">
+                            <h4>Right to Non-Discrimination</h4>
+                            <p>We will never deny services, charge different prices, or treat you differently for exercising your privacy rights.</p>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>3. How to Submit a Request</h2>
+                        <p>If you wish to exercise any CCPA/CPRA privacy rights, you can contact us using the options below.</p>
+                        
+                        <div className="sub-section">
+                            <h4>📧 Email Request</h4>
+                            <p>Send your request to: <strong>support@printscarts.com</strong></p>
+                            <p>Please include your full name, contact email, and the specific request (Access, Delete, Correct, Opt-Out, etc.).</p>
+                        </div>
+
+                        <div className="sub-section">
+                            <h4>📬 Mailing Address Request</h4>
+                            <p>
+                                <strong>Prints Carts</strong><br />
+                                7181 Beacon Dr 15<br />
+                                Reno, NV 89506<br />
+                                United States
+                            </p>
+                        </div>
+                        <p className="notice">Identity Verification: To protect your privacy, we may request additional information to verify your identity before processing your request.</p>
+                    </section>
+
+                    <section>
+                        <h2>4. Categories of Personal Information We Collect</h2>
+                        <p>We collect only information necessary for essential e-commerce operations, such as:</p>
+                        <ul>
+                            <li>Name and contact details</li>
+                            <li>Shipping and billing address</li>
+                            <li>Email for order confirmations</li>
+                            <li>Payment details (processed securely through third-party systems)</li>
+                            <li>Order history</li>
+                            <li>Basic website session data (non-marketing cookies)</li>
+                        </ul>
+                        <p className="notice">We do not collect biometric, geolocation, or highly sensitive information for marketing purposes.</p>
+                    </section>
+
+                    <section>
+                        <h2>5. Purposes for Using Personal Information</h2>
+                        <div className="sub-section">
+                            <h4>We Use Information For:</h4>
+                            <ul>
+                                <li>Order processing & fulfillment</li>
+                                <li>Secure payment processing</li>
+                                <li>Shipping and delivery logistics</li>
+                                <li>Customer support & communication</li>
+                                <li>Website functionality and fraud prevention</li>
+                            </ul>
+                        </div>
+                        <div className="sub-section">
+                            <h4>We Do NOT Use For:</h4>
+                            <ul>
+                                <li>Behavioral advertising or cross-site tracking</li>
+                                <li>Selling user data or profiling for marketing purposes</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>6. Third-Party Service Providers</h2>
+                        <p>We share data only with essential service providers such as payment processors, shipping carriers, and fraud-prevention services. These partners are contractually required to handle information securely and cannot use it for advertising or resale.</p>
+                    </section>
+
+                    <section>
+                        <h2>7. Minors’ Personal Information</h2>
+                        <p>We do not knowingly collect personal information from individuals under age 13, and we do not sell or share data of minors under age 16.</p>
+                    </section>
+
+                    <section>
+                        <h2>8. Updates to This Notice</h2>
+                        <p>We may update this notice as privacy laws evolve or our business practices change. The updated version will always appear on this page with a revised Last Updated date.</p>
+                    </section>
+
+                    <section>
+                        <h2>9. Contact Us</h2>
+                        <p>If you have questions about your privacy rights or this notice:</p>
+                        <p>
+                            <strong>Email:</strong> support@printscarts.com<br />
+                            <strong>Mailing Address:</strong> 7181 Beacon Dr 15, Reno, NV 89506<br />
+                            <strong>Official Website:</strong> www.printscarts.com
+                        </p>
+                    </section>
+                </div>
+
+                <div className="policy-document-footer">
+                    <span style={{ fontSize: '13px', color: '#94a3b8' }}>Document Reference: PC-DNS-2026-V1</span>
+                    <button 
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        style={{ background: 'none', border: 'none', color: '#0f3d91', fontWeight: '600', cursor: 'pointer' }}
+                    >
+                        Back to Top ↑
+                    </button>
                 </div>
             </main>
             <Footer />
@@ -264,3 +170,4 @@ const DoNotSell = () => {
 };
 
 export default DoNotSell;
+

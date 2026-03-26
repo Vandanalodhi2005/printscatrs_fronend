@@ -1,24 +1,38 @@
-.thank-you {
+.thank-you-section {
+    padding: 100px 20px 120px;
+    background: linear-gradient(135deg, #0f3d91 0%, #1e5bb8 100%);
+    color: #fff;
     text-align: center;
-    padding: 60px 40px;
-    background: linear-gradient(135deg, #0f3d91, #0b2c66);
-    color: #fff;
-    border-radius: 12px;
-    margin-bottom: 80px;
-    animation: fadeInUp 0.6s ease-out both;
 }
 
-.thank-you h2 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 24px;
-}
-
-.thank-you p {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.95);
-    line-height: 1.8;
+.thank-you-container {
     max-width: 800px;
     margin: 0 auto;
+}
+
+.thank-you-section .section-title {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: aliceblue;
+}
+
+.thank-you-section p {
+    font-size: 20px;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .thank-you-section {
+        padding: 60px 20px 80px;
+    }
+
+    .thank-you-section .section-title {
+        font-size: 32px;
+    }
+
+    .thank-you-section p {
+        font-size: 17px;
+    }
 }

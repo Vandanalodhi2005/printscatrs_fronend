@@ -71,9 +71,12 @@ const ContactForm = () => {
 
     return (
         <div className="contact-form-card">
-            <h2>Send a Message</h2>
+            <div className="form-header">
+                <h2>📩 Contact Form</h2>
+                <p>If you prefer reaching out through our website, simply fill out the form below. A team member will contact you shortly.</p>
+            </div>
             {submitError && (
-                <div style={{ backgroundColor: '#fee2e2', color: '#dc2626', padding: '10px', borderRadius: '5px', marginBottom: '15px', border: '1px solid #fecaca' }}>
+                <div className="error-alert">
                     {submitError}
                 </div>
             )}
@@ -150,7 +153,7 @@ const ContactForm = () => {
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        placeholder="Write your message here..."
+                        placeholder="Write your message here…"
                         required
                     />
                 </div>

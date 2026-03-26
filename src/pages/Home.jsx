@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from "../components/navbar/Navbar";
 import HomeHero from "../components/home/HomeHero/HomeHero";
 import HomeAbout from "../components/home/HomeAbout/HomeAbout";
+import HomeProducts from "../components/home/HomeProducts/HomeProducts";
 import HomeWhyChoose from "../components/home/HomeWhyChoose/HomeWhyChoose";
 import ShopByCategory from "../components/sections/ShopByCategory";
 import HomeCommitment from "../components/home/HomeCommitment/HomeCommitment";
@@ -12,10 +13,11 @@ import Footer from "../components/footer/Footer";
 
 const Home = () => {
   return (
-    <>
+    <div className="home-page">
       <Navbar />
       <HomeHero />
       <HomeAbout />
+      <HomeProducts />
       <HomeWhyChoose />
       <ShopByCategory />
       <HomeCommitment />
@@ -23,7 +25,7 @@ const Home = () => {
       <HomePeaceOfMind />
       <HomeNotice />
       <Footer />
-    </>
+    </div>
   );
 };
 

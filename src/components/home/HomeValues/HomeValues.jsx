@@ -20,7 +20,8 @@ const HomeValues = () => {
         },
         {
             title: 'Independence',
-            description: 'Prints Carts is an independent retailer. We are not affiliated with or endorsed by any printer or technology manufacturer.',
+            description: 'Prints Carts is an independent retailer.',
+            subDescription: 'We are not affiliated with or endorsed by any printer or technology manufacturer.',
             details: 'All trademarks and brand names belong to their respective owners and are used for identification purposes only.',
             icon: '🗽'
         }
@@ -36,6 +37,7 @@ const HomeValues = () => {
                             <div className="value-icon">{value.icon}</div>
                             <h3>{value.title}</h3>
                             <p>{value.description}</p>
+                            {value.subDescription && <p className="value-description">{value.subDescription}</p>}
                             {value.details && <p className="value-details">{value.details}</p>}
                         </div>
                     ))}

@@ -4,67 +4,69 @@ import './AboutOffers.css';
 const AboutOffers = () => {
     return (
         <section className="what-we-offer">
-            <h2>What We Offer</h2>
-            <div className="offer-grid">
-                <div className="offer-card">
-                    <div className="offer-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <rect width="48" height="48" rx="8" fill="#e0f2fe" />
-                            <path d="M20 10L24 18H32L26 24L28 32L20 26L12 32L14 24L8 18H16L20 10Z" fill="#0f3d91" />
-                        </svg>
+            <div className="offer-container">
+                <h2 className="section-title">What We Offer</h2>
+                <div className="offer-grid">
+                    <div className="offer-card">
+                        <div className="offer-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><line x1="3" y1="9" x2="21" y2="9" /><line x1="9" y1="21" x2="9" y2="9" />
+                            </svg>
+                        </div>
+                        <h3>A Diverse Selection of Printing Essentials</h3>
+                        <p>
+                            From compact home-use printers to office-ready machines, and from ink and toner to
+                            printer-friendly paper, Prints Carts provides a wide range of products to meet different
+                            printing needs.
+                        </p>
                     </div>
-                    <h3>A Diverse Selection of Printing Essentials</h3>
-                    <p>
-                        From compact home-use printers to office-ready machines, and from ink and toner to
-                        printer-friendly paper, Prints Carts provides a wide range of products to meet different
-                        printing needs.
-                    </p>
-                </div>
 
-                <div className="offer-card">
-                    <div className="offer-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <rect width="48" height="48" rx="8" fill="#e0f2fe" />
-                            <path d="M24 16C20.69 16 18 18.69 18 22V26C18 29.31 20.69 32 24 32C27.31 32 30 29.31 30 26V22C30 18.69 27.31 16 24 16Z" fill="#0f3d91" />
-                        </svg>
+                    <div className="offer-card">
+                        <div className="offer-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
+                            </svg>
+                        </div>
+                        <h3>Accurate Product Details</h3>
+                        <p>
+                            We ensure that product descriptions, compatibility information, and specifications are
+                            presented clearly. This helps you choose the right items without confusion or uncertainty.
+                        </p>
                     </div>
-                    <h3>Accurate Product Details</h3>
-                    <p>
-                        We ensure that product descriptions, compatibility information, and specifications are
-                        presented clearly. This helps you choose the right items without confusion or uncertainty.
-                    </p>
-                </div>
 
-                <div className="offer-card">
-                    <div className="offer-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <rect width="48" height="48" rx="8" fill="#e0f2fe" />
-                            <path d="M16 20H32V22H16V20Z" fill="#0f3d91" />
-                            <path d="M16 24H28V26H16V24Z" fill="#0f3d91" />
-                            <path d="M20 28H32V30H20V28Z" fill="#0f3d91" />
-                        </svg>
+                    <div className="offer-card">
+                        <div className="offer-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </div>
+                        <h3>Convenient & Secure Shopping Experience</h3>
+                        <p>
+                            Our website is designed for easy browsing, simple checkout, and secure payment processing.
+                            We use industry-standard practices to help protect your personal information.
+                        </p>
                     </div>
-                    <h3>Convenient & Secure Shopping Experience</h3>
-                    <p>
-                        Our website is designed for easy browsing, simple checkout, and secure payment processing.
-                        We use industry-standard practices to help protect your personal information.
-                    </p>
-                </div>
 
-                <div className="offer-card">
-                    <div className="offer-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <rect width="48" height="48" rx="8" fill="#e0f2fe" />
-                            <circle cx="24" cy="20" r="4" stroke="#0f3d91" strokeWidth="2" fill="none" />
-                            <path d="M16 32C16 28 20 26 24 26C28 26 32 28 32 32" stroke="#0f3d91" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
+                    <div className="offer-card expert-card">
+                        <div className="offer-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </div>
+                        <h3>Customer-Focused Assistance</h3>
+                        <div className="assistance-details">
+                            <p>Our support team is available to help with:</p>
+                            <ul>
+                                <li>Product inquiries</li>
+                                <li>Order status updates</li>
+                                <li>Basic questions about printing supplies</li>
+                            </ul>
+                            <p className="assistance-notice">
+                                While we do not provide repair, setup, or troubleshooting services, 
+                                we are always happy to assist with shopping-related questions.
+                            </p>
+                        </div>
                     </div>
-                    <h3>Customer-Focused Assistance</h3>
-                    <p>
-                        Our support team is available to help with product inquiries, order status updates,
-                        and basic questions about printing supplies. While we do not provide repair, setup,
-                        or troubleshooting services, we are always happy to assist with shopping-related questions.
-                    </p>
                 </div>
             </div>
         </section>

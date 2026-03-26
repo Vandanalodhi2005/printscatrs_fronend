@@ -27,15 +27,7 @@ const FAQContact = () => {
                     <span>support@printscarts.com</span>
                 </div>
             </div>
-            <div className="map-container">
-                <div className="map-placeholder">
-                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
-                        <path d="M50 10C35.64 10 24 21.64 24 36C24 50.36 50 90 50 90C50 90 76 50.36 76 36C76 21.64 64.36 10 50 10Z" stroke="currentColor" strokeWidth="2" />
-                        <circle cx="50" cy="36" r="8" fill="currentColor" />
-                    </svg>
-                    <p>Reno, NV 89506, USA</p>
-                </div>
-            </div>
+
         </div>
     );
 };

@@ -1,53 +1,84 @@
 .transparency-commitment {
-    margin-bottom: 80px;
-    animation: fadeInUp 0.6s ease-out both;
+    padding: 100px 20px;
+    background: #fff;
 }
 
-.transparency-commitment h2 {
-    font-size: 32px;
-    font-weight: 700;
+.commitment-inner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.transparency-commitment .section-title {
+    font-size: 42px;
+    font-weight: 800;
     color: #0f3d91;
-    margin: 0 0 24px 0;
+    margin-bottom: 60px;
+    text-align: center;
 }
 
-.transparency-commitment p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #666;
-    margin: 0 0 20px 0;
+.commitment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.commitment-intro p {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 24px;
+    font-weight: 600;
 }
 
 .transparency-list {
     list-style: none;
     padding: 0;
-    margin: 24px 0;
+    margin: 0;
 }
 
 .transparency-list li {
-    padding: 12px 0;
+    font-size: 17px;
+    color: #444;
+    margin-bottom: 16px;
     padding-left: 32px;
-    font-size: 16px;
-    color: #666;
     position: relative;
-    line-height: 1.6;
 }
 
 .transparency-list li::before {
     content: '✓';
     position: absolute;
     left: 0;
-    color: #10b981;
-    font-weight: bold;
-    font-size: 20px;
+    color: #0f3d91;
+    font-weight: 800;
+}
+
+.trademark-card {
+    background: #f8fafc;
+    padding: 40px;
+    border-radius: 20px;
+    border-left: 6px solid #0f3d91;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .trademark-notice {
-    padding: 20px;
-    background: #f8f9fa;
-    border-left: 4px solid #0f3d91;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #666;
+    font-size: 16px;
     line-height: 1.8;
-    margin-top: 24px;
+    color: #475569;
+    font-style: italic;
+    margin: 0 !important;
+}
+
+@media (max-width: 968px) {
+    .transparency-commitment {
+        padding: 60px 20px;
+    }
+
+    .commitment-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .transparency-commitment .section-title {
+        font-size: 32px;
+    }
 }
