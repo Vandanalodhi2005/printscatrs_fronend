@@ -20,34 +20,41 @@ const Footer = () => {
     <footer className="footer-enhanced">
       <div className="footer-container">
         <div className="footer-content">
-          {/* Company Info */}
-          <div className="footer-section">
-            <Link to="/" className="inline-block mb-4">
-               <img src={logo} alt="PrintsCarts" className="h-12 md:h-24 w-auto object-contain brightness-0 invert opacity-90" />
+          {/* Company Info - Left Column */}
+          <div className="footer-section company-info">
+            <Link to="/" className="footer-logo-box">
+               <img 
+                 src={logo} 
+                 alt="PrintsCarts" 
+                 className="footer-logo-img" 
+                 width="120" 
+                 height="100" 
+                 decoding="async" 
+               />
             </Link>
             <p className="footer-description">
               Your trusted source for printers, ink, toner, and printing supplies.
               We're committed to providing quality products with transparent service.
             </p>
             
-            {/* Track Order Widget */}
-            <div className="mt-6 mb-6">
-              <h5 className="text-white font-bold mb-2 text-sm">Track Your Order</h5>
-              <form onSubmit={handleTrackSubmit} className="flex gap-2">
+            {/* Track Order Widget Below Description */}
+            <div className="footer-track-widget">
+              <h4 className="track-title">Track Your Order</h4>
+              <form onSubmit={handleTrackSubmit} className="track-form">
                 <input 
                   type="text" 
                   placeholder="Enter Order ID" 
-                  className="bg-slate-800 text-white text-sm px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 flex-1 w-full"
+                  className="track-input"
                   value={trackId}
                   onChange={(e) => setTrackId(e.target.value)}
                 />
-                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition-colors">
+                <button type="submit" className="track-btn" aria-label="Track Order">
                   <FiSearch />
                 </button>
               </form>
             </div>
 
-            <p className="footer-copyright">
+            <p className="footer-copyright-text">
               &copy; {new Date().getFullYear()} Prints Carts. All rights reserved.
             </p>
           </div>

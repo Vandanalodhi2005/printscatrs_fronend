@@ -24,6 +24,11 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const optimizeCloudinaryUrl = (url, width = 800) => {
+    if (!url || !url.includes('cloudinary.com')) return url;
+    return url.replace('/upload/', `/upload/w_${width},c_limit,q_auto,f_auto/`);
+  };
+
   const productList = useSelector((state) => state.productList);
   const { products: relatedProducts } = productList;
 
@@ -252,7 +257,7 @@ const handleReviewClick = () => {
             {images.map((img, i) => (
               <img
                 key={i}
-                src={img}
+                src={optimizeCloudinaryUrl(img, 200)}
                 className={i === activeImageIndex ? "active" : ""}
                 onMouseEnter={() => setActiveImageIndex(i)}
                 onClick={() => setActiveImageIndex(i)}
@@ -270,7 +275,7 @@ const handleReviewClick = () => {
                 onMouseMove={handleMouseMove}
             >
               <img 
-                src={activeImgSrc} 
+                src={optimizeCloudinaryUrl(activeImgSrc, 1200)} 
                 alt={product.title} 
                 style={{
                     transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
@@ -571,7 +576,7 @@ const handleReviewClick = () => {
                  {relatedProducts.filter(p => p._id !== product._id).slice(0, 4).map(p => (
                     <Link to={`/product/${p.slug || p._id}`} key={p._id} className="related-card" onClick={() => window.scrollTo(0,0)}>
                         <div className="related-img-box">
-                             <img src={p.image || (p.images && p.images[0])} alt={p.name} />
+                             <img src={optimizeCloudinaryUrl(p.image || (p.images && p.images[0]), 300)} alt={p.name} />
                         </div>
                         <div className="related-info">
                             <h4>{p.name}</h4>

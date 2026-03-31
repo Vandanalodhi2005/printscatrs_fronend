@@ -93,7 +93,7 @@
 .label-text {
     font-size: 12px;
     font-weight: 700;
-    color: #94a3b8;
+    color: #334155; /* Increased contrast from #475569 */
     white-space: nowrap;
 }
 
@@ -144,7 +144,7 @@
 
 .checkbox-group label {
     font-size: 13px;
-    color: #475569;
+    color: #334155;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -166,7 +166,7 @@
 }
 
 .green-text {
-    color: #059669 !important;
+    color: #034d38 !important; /* Even darker green for maximum contrast */
 }
 
 .filter-group select {

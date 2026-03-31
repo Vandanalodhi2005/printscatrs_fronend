@@ -16,7 +16,7 @@
 .section-subtitle {
     font-size: 14px;
     font-weight: 800;
-    color: #4a90e2;
+    color: #0c367a; /* Darker navy for high contrast */
     text-transform: uppercase;
     letter-spacing: 3px;
     margin-bottom: 16px;

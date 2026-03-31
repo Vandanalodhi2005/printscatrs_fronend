@@ -4,9 +4,15 @@ import { Eye, ShoppingBag } from 'lucide-react';
 import './HomeProductCard.css';
 
 const HomeProductCard = ({ product, handleDetails, handleBuyNow }) => {
+    const optimizeCloudinaryUrl = (url) => {
+        if (!url || !url.includes('cloudinary.com')) return url;
+        // Add dynamic resizing (w_400,c_limit), auto quality (q_auto), and auto format (f_auto)
+        return url.replace('/upload/', '/upload/w_400,c_limit,q_auto,f_auto/');
+    };
+
     const imageUrl = product.image || (product.images && product.images[0]) || '/PrintsCartslogo.png';
-    const finalImageUrl = imageUrl.startsWith('http') 
-        ? imageUrl 
+    let finalImageUrl = imageUrl.startsWith('http') 
+        ? optimizeCloudinaryUrl(imageUrl) 
         : `${import.meta.env.VITE_API_URL?.replace('/api', '') || ''}${imageUrl}`;
 
     return (
@@ -15,6 +21,7 @@ const HomeProductCard = ({ product, handleDetails, handleBuyNow }) => {
                 <img 
                     src={finalImageUrl} 
                     alt={product.title || product.name} 
+                    loading="lazy"
                     onError={(e) => { e.target.src = 'https://via.placeholder.com/300?text=No+Image'; }}
                 />
                 {product.countInStock === 0 && (

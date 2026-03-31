@@ -98,7 +98,7 @@ const Navbar = () => {
             <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
                 <div className="navbar-container">
                     <Link to="/" className="nav-logo">
-                        <img src={logo} alt="PrintsCarts Official" />
+                        <img src={logo} alt="PrintsCarts Official" width="220" height="180" decoding="async" />
                     </Link>
 
                     <ul className="nav-links">
@@ -113,7 +113,7 @@ const Navbar = () => {
 
                     <div className="nav-icons-group">
                         <div className="search-wrapper" ref={searchRef} style={{ position: 'relative' }}>
-                            <button className="icon-button" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+                            <button className="icon-button" onClick={() => setIsSearchOpen(!isSearchOpen)} aria-label="Open Search">
                                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
@@ -152,7 +152,7 @@ const Navbar = () => {
                             )}
                         </div>
 
-                        <Link to="/cart" className="icon-button">
+                        <Link to="/cart" className="icon-button" aria-label="View Shopping Cart">
                             <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                             </svg>
@@ -201,6 +201,7 @@ const Navbar = () => {
                         <button 
                             className={`hamburger-toggle ${isMobileOpen ? 'active' : ''}`}
                             onClick={() => setIsMobileOpen(!isMobileOpen)}
+                            aria-label="Toggle Navigation Menu"
                         >
                             <span className="hamburger-line line-1"></span>
                             <span className="hamburger-line line-2"></span>

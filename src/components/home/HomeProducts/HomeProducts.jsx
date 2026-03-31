@@ -169,10 +169,11 @@ const HomeProducts = () => {
                                 placeholder="Search model, brand or features..." 
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
+                                aria-label="Search printers"
                             />
                         </div>
                         <div className="sort-container">
-                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} aria-label="Sort printers by">
                                 <option value="featured">Recommended</option>
                                 <option value="price-low">Price: Low to High</option>
                                 <option value="price-high">Price: High to Low</option>
@@ -189,6 +190,7 @@ const HomeProducts = () => {
                                     step="100"
                                     value={priceRange.max}
                                     onChange={(e) => setPriceRange({ ...priceRange, max: Number(e.target.value) })}
+                                    aria-label="Filter by maximum price"
                                 />
                                 <span className="price-value">${priceRange.max}</span>
                             </div>
@@ -197,7 +199,7 @@ const HomeProducts = () => {
 
                     <div className="filter-bottom-row">
                         <div className="filter-group">
-                            <h4>Technology</h4>
+                            <h2>Technology</h2>
                             <div className="checkbox-group">
                                 <label><input type="checkbox" checked={technology.inkjet} onChange={() => setTechnology({...technology, inkjet: !technology.inkjet})} /> Inkjet</label>
                                 <label><input type="checkbox" checked={technology.laser} onChange={() => setTechnology({...technology, laser: !technology.laser})} /> Laser</label>
@@ -205,7 +207,7 @@ const HomeProducts = () => {
                             </div>
                         </div>
                         <div className="filter-group">
-                            <h4>Usage Category</h4>
+                            <h2>Usage Category</h2>
                             <div className="checkbox-group grid-2">
                                 <label><input type="checkbox" checked={usageCategory.home} onChange={() => setUsageCategory({...usageCategory, home: !usageCategory.home})} /> Home</label>
                                 <label><input type="checkbox" checked={usageCategory.office} onChange={() => setUsageCategory({...usageCategory, office: !usageCategory.office})} /> Office</label>
@@ -214,22 +216,22 @@ const HomeProducts = () => {
                             </div>
                         </div>
                         <div className="filter-group">
-                            <h4>All-in-One Type</h4>
+                            <h2>All-in-One Type</h2>
                             <div className="checkbox-group">
                                 <label className="purple-text"><input type="checkbox" checked={aioType.multifunction} onChange={() => setAioType({...aioType, multifunction: !aioType.multifunction})} /> Multifunction</label>
                                 <label className="purple-text"><input type="checkbox" checked={aioType.singleFunction} onChange={() => setAioType({...aioType, singleFunction: !aioType.singleFunction})} /> Single Function</label>
                             </div>
                         </div>
                         <div className="filter-group">
-                            <h4>Wireless</h4>
-                            <select value={wireless} onChange={(e) => setWireless(e.target.value)}>
+                            <h2>Wireless</h2>
+                            <select value={wireless} onChange={(e) => setWireless(e.target.value)} aria-label="Wireless connectivity">
                                 <option>Select</option>
                                 <option>Wi-Fi</option>
                                 <option>Bluetooth</option>
                             </select>
                         </div>
                         <div className="filter-group">
-                            <h4>Main Function</h4>
+                            <h2>Main Function</h2>
                             <div className="checkbox-group grid-3">
                                 <label className="green-text"><input type="checkbox" checked={mainFunction.print} onChange={() => setMainFunction({...mainFunction, print: !mainFunction.print})} /> Print</label>
                                 <label className="green-text"><input type="checkbox" checked={mainFunction.scan} onChange={() => setMainFunction({...mainFunction, scan: !mainFunction.scan})} /> Scan</label>

@@ -249,17 +249,17 @@ const Profile = () => {
                                         </button>
                                     </div>
                                 ) : orders && orders.length === 0 ? (
-                                    <div className="bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 flex flex-col items-center text-center shadow-sm">
-                                        <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-6">
-                                            <FiPackage className="text-slate-400 text-4xl" />
+                                    <div style={{ textAlign: 'center', background: '#f8fafc', padding: '60px 40px', borderRadius: '32px', border: '1px dashed #cbd5e1' }}>
+                                        <div style={{ width: '80px', height: '80px', background: '#ffffff', borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', color: '#cbd5e1', border: '1px solid #f1f5f9' }}>
+                                            <FiPackage size={40} />
                                         </div>
-                                        <h2 className="text-2xl font-bold text-slate-800 mb-2">No orders found</h2>
-                                        <p className="text-slate-500 mb-8 max-w-md">Looks like you haven't bought anything from us yet.</p>
+                                        <h2 style={{ fontSize: '24px', fontWeight: '900', color: '#1e293b', marginBottom: '12px', textTransform: 'uppercase' }}>No Orders Recorded</h2>
+                                        <p style={{ color: '#64748b', fontSize: '15px', marginBottom: '32px', fontWeight: '500' }}>Your procurement history is currently empty.</p>
                                         <Link 
                                             to="/printers" 
-                                            className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-200"
+                                            style={{ display: 'inline-flex', background: '#0f3d91', color: '#ffffff', padding: '16px 40px', borderRadius: '16px', fontWeight: '900', textTransform: 'uppercase', textDecoration: 'none', fontSize: '12px', letterSpacing: '0.05em' }}
                                         >
-                                            Start Shopping
+                                            Inaugurate Procurement
                                         </Link>
                                     </div>
                                 ) : (

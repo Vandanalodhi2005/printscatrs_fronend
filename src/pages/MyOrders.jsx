@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { listMyOrders } from '../redux/actions/orderActions';
-import PageContainer from "../components/common/PageContainer";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
-import { FiPackage, FiTruck, FiCheckCircle, FiClock, FiAlertCircle, FiCopy } from "react-icons/fi";
+import { FiPackage, FiTruck, FiCheckCircle, FiClock, FiAlertCircle } from "react-icons/fi";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
@@ -26,172 +25,77 @@ const MyOrders = () => {
   }, [dispatch, navigate, userInfo]);
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: '#ffffff' }}>
       <Navbar />
-      <div className="bg-slate-50 min-h-screen pt-24 pb-12">
-        <PageContainer>
-          {/* Header */}
-          <div className="mb-10">
-            <h1 className="text-4xl font-extrabold text-slate-900">My Orders</h1>
-            <p className="text-slate-500 mt-2 text-lg">
-              Track your recent purchases and order progress
+      
+      <main style={{ flexGrow: 1, paddingTop: '80px', paddingBottom: '100px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+          
+          {/* Centered Executive Header */}
+          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <h1 style={{ fontSize: '48px', fontWeight: '900', color: '#0f3d91', marginBottom: '16px', textTransform: 'uppercase' }}>Command Center</h1>
+            <div style={{ width: '80px', height: '4px', background: '#0a3382', margin: '0 auto 24px', borderRadius: '2px' }}></div>
+            <p style={{ fontSize: '18px', color: '#64748b', maxWidth: '600px', margin: '0 auto', fontWeight: '500' }}>
+               Manage your procurement history and monitor the lifecycle of your professional assets.
             </p>
           </div>
 
           {loading ? (
-             <div className="flex flex-col items-center justify-center py-20">
-                 <div className="w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
-                 <p className="text-slate-500 font-medium">Loading your orders...</p>
+             <div style={{ display: 'flex', justifyContent: 'center', padding: '100px 0' }}>
+                 <div style={{ width: '40px', height: '40px', border: '4px solid #f1f5f9', borderTop: '4px solid #0f3d91', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
              </div>
           ) : error ? (
-             <div className="bg-red-50 border border-red-100 rounded-2xl p-6 text-center">
-                 <FiAlertCircle className="mx-auto text-red-500 text-3xl mb-2" />
-                 <h3 className="text-red-800 font-bold text-lg mb-1">Error Loading Orders</h3>
-                 <p className="text-red-600">{error}</p>
-                 <button 
-                    onClick={() => dispatch(listMyOrders())}
-                    className="mt-4 px-6 py-2 bg-white border border-red-200 text-red-600 font-bold rounded-lg hover:bg-red-50 transition"
-                 >
-                    Try Again
-                 </button>
+             <div style={{ maxWidth: '700px', margin: '0 auto', background: '#fef2f2', border: '1px solid #fee2e2', borderRadius: '24px', padding: '40px', textAlign: 'center' }}>
+                 <FiAlertCircle size={48} style={{ color: '#ef4444', marginBottom: '16px' }} />
+                 <h3 style={{ color: '#991b1b', fontWeight: '900', textTransform: 'uppercase', marginBottom: '8px' }}>Synchronization Error</h3>
+                 <p style={{ color: '#ef4444', fontWeight: '600' }}>{error}</p>
+                 <button onClick={() => dispatch(listMyOrders())} style={{ mt: '24px', padding: '12px 32px', background: '#0f3d91', color: '#ffffff', borderRadius: '12px', border: 'none', fontWeight: '800', cursor: 'pointer', marginTop: '24px' }}>Retry Connection</button>
              </div>
           ) : orders && orders.length === 0 ? (
-             <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-12 text-center shadow-sm">
-                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                     <FiPackage className="text-slate-400 text-3xl sm:text-4xl" />
-                 </div>
-                 <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">No orders found</h2>
-                 <p className="text-slate-500 mb-6 sm:mb-8 max-w-md mx-auto text-sm sm:text-base">Looks like you haven't bought anything from us yet. Browse our products and find something you love!</p>
-                 <Link 
-                    to="/printers" 
-                    className="inline-flex items-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-200 text-sm sm:text-base"
-                 >
-                    Start Shopping
-                 </Link>
+             <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center', background: '#f8fafc', padding: '80px 40px', borderRadius: '40px', border: '1px dashed #cbd5e1' }}>
+                 <FiPackage size={64} style={{ color: '#cbd5e1', marginBottom: '24px' }} />
+                 <h2 style={{ fontSize: '32px', fontWeight: '900', color: '#1e293b', marginBottom: '16px' }}>No Orders Recorded</h2>
+                 <p style={{ color: '#64748b', fontSize: '16px', marginBottom: '40px' }}>Your procurement history is currently empty. Visit the inventory hub to begin.</p>
+                 <Link to="/printers" style={{ background: '#0f3d91', color: '#ffffff', padding: '16px 40px', borderRadius: '16px', fontWeight: '900', textTransform: 'uppercase', textDecoration: 'none' }}>View Catalog</Link>
              </div>
           ) : (
-            /* Orders List */
-            <div className="space-y-6">
+            <div style={{ display: 'grid', gap: '24px' }}>
               {orders.map((order) => (
-                <div
-                  key={order._id}
-                  className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all overflow-hidden group"
-                >
-                  {/* Order Header */}
-                  <div className="flex flex-wrap items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
-                        <div>
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Order Placed</p>
-                          <p className="text-sm font-bold text-slate-700">
-                             {new Date(order.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Total</p>
-                          <p className="text-sm font-bold text-slate-900">${order.totalPrice.toFixed(2)}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Order #</p>
-                          <div className="flex items-center gap-2">
-                              <p className="text-sm font-mono text-slate-600 truncate max-w-[120px] md:max-w-none" title={order._id}>{order._id}</p>
-                              <button 
-                                  onClick={() => {
-                                      navigator.clipboard.writeText(order._id);
-                                  }}
-                                  className="text-slate-400 hover:text-blue-600 transition-colors cursor-pointer"
-                                  title={`Copy Full Order ID: ${order._id}`}
-                              >
-                                  <FiCopy size={14} />
-                              </button>
-                          </div>
-                        </div>
+                <div key={order._id} style={{ background: '#ffffff', borderRadius: '24px', border: '1px solid #f1f5f9', padding: '32px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '32px' }}>
+                  <div style={{ display: 'flex', gap: '32px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <div style={{ width: '64px', height: '64px', background: '#f8fafc', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0f3d91' }}>
+                        <FiPackage size={32} />
                     </div>
-
-                    <div className="mt-4 sm:mt-0 flex items-center gap-3">
-                         {/* Status Badge */}
-                         {order.status === 'Failed' ? (
-                             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold uppercase tracking-wide">
-                                <FiAlertCircle /> Failed
-                             </span>
-                         ) : order.isDelivered ? (
-                             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold uppercase tracking-wide">
-                                <FiCheckCircle /> Delivered
-                             </span>
-                         ) : order.isPaid ? (
-                             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wide">
-                                <FiTruck /> Processing
-                             </span>
-                         ) : (
-                             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold uppercase tracking-wide">
-                                <FiClock /> Pending
-                             </span>
-                         )}
-                         
-                         {/* Details Button */}
-                         <div className="hidden sm:flex items-center gap-2">
-                            <Link 
-                                to={`/order/${order._id}`}
-                                className="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-sm font-bold rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors"
-                            >
-                                View Details
-                            </Link>
-                            <Link 
-                                to={`/track-order?id=${order._id}`}
-                                className="px-4 py-2 bg-blue-600 text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-                            >
-                                Track
-                            </Link>
-                         </div>
+                    <div>
+                        <p style={{ fontSize: '10px', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '4px' }}>Manifest Reference</p>
+                        <h4 style={{ fontSize: '20px', fontWeight: '900', color: '#1e293b', margin: 0 }}>#{order._id.slice(-8).toUpperCase()}</h4>
+                    </div>
+                    <div>
+                        <p style={{ fontSize: '10px', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '4px' }}>Transaction Date</p>
+                        <p style={{ fontSize: '14px', fontWeight: '700', color: '#475569', margin: 0 }}>{new Date(order.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    </div>
+                    <div>
+                        <p style={{ fontSize: '10px', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '4px' }}>Fiscal Total</p>
+                        <p style={{ fontSize: '18px', fontWeight: '900', color: '#0f3d91', margin: 0 }}>${order.totalPrice.toFixed(2)}</p>
                     </div>
                   </div>
 
-                  {/* Order Body */}
-                  <div className="p-6">
-                    <div className="flex flex-col md:flex-row gap-6">
-                       {/* Preview Items (First 2) */}
-                       <div className="flex-1 space-y-4">
-                           {order.orderItems.slice(0, 2).map((item, index) => (
-                               <div key={index} className="flex items-start gap-4">
-                                   <div className="w-16 h-16 bg-white border border-slate-100 rounded-lg p-2 flex-shrink-0">
-                                       <img 
-                                          src={item.image.startsWith('http') ? item.image : `${import.meta.env.VITE_API_URL.replace('/api', '')}${item.image}`} 
-                                          alt={item.name} 
-                                          className="w-full h-full object-contain mix-blend-multiply"
-                                       />
-                                   </div>
-                                   <div className='flex-1 min-w-0'>
-                                       <Link to={`/product/${item.slug || item.product}`} className="text-sm font-bold text-slate-800 hover:text-blue-600 transition-colors line-clamp-2">
-                                           {item.name}
-                                       </Link>
-                                       <p className="text-xs text-slate-500 mt-1">Qty: {item.qty} × ${item.price}</p>
-                                   </div>
-                               </div>
-                           ))}
-                           {order.orderItems.length > 2 && (
-                               <p className="text-xs text-slate-400 font-medium pl-20">+ {order.orderItems.length - 2} more items</p>
-                           )}
-                       </div>
-                       
-                       {/* Mobile Details Button */}
-                       <div className="sm:hidden mt-2">
-                            <Link 
-                                to={`/order/${order._id}`}
-                                className="w-full block text-center px-4 py-3 bg-slate-50 border border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-100 transition-colors"
-                            >
-                                View Order Details
-                            </Link>
-                       </div>
-                    </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                      <div style={{ padding: '8px 20px', borderRadius: '99px', fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', background: order.isDelivered ? '#ecfdf5' : order.isPaid ? '#eff6ff' : '#fff7ed', color: order.isDelivered ? '#059669' : order.isPaid ? '#0f3d91' : '#d97706', border: '1px solid currentColor' }}>
+                          {order.isDelivered ? "Delivered" : order.isPaid ? "Processing" : "Action Required"}
+                      </div>
+                      <Link to={`/track-order?id=${order._id}`} style={{ padding: '10px 24px', background: '#0f3d91', color: '#ffffff', borderRadius: '12px', textDecoration: 'none', fontSize: '12px', fontWeight: '900', textTransform: 'uppercase' }}>Monitor</Link>
                   </div>
                 </div>
               ))}
             </div>
           )}
-        </PageContainer>
-      </div>
+        </div>
+      </main>
+
       <Footer />
-    </>
+      <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+    </div>
   );
 };
 export default MyOrders;
-

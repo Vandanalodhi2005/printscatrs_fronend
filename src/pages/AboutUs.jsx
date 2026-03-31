@@ -13,8 +13,8 @@ const AboutUs = () => {
   return (
     <>
       <Navbar />
-      <div className="about-us-page">
-        <div className="about-us-container">
+      <div className="about-us-page" style={{ background: '#ffffff', minHeight: '100vh' }}>
+        <div className="about-us-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 20px 100px 20px' }}>
           <AboutHero />
           <AboutWhoWeAre />
           <AboutOffers />
@@ -30,4 +30,3 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
-

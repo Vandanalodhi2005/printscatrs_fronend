@@ -27,7 +27,7 @@ const AdminChat = () => {
             dispatch(fetchAllChats());
 
             // Initialize Socket.io
-            const newSocket = io('https://printersbackend.onrender.com', {
+            const newSocket = io(import.meta.env.VITE_API_URL.replace('/api', ''), {
                 auth: { token: userInfo.token }
             });
 

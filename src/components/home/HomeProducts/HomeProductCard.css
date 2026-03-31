@@ -1,41 +1,25 @@
 .custom-product-card {
     background: white;
-    border: 1px solid #e2e8f0;
+    border: 1.5px solid #f1f5f9;
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
 .custom-product-card:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    transform: translateY(-4px);
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.08);
 }
 
 .card-image-wrapper {
     display: block;
-    height: 200px;
-    padding: 20px;
+    height: 220px;
+    padding: 30px;
     background: white;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f8fafc;
     position: relative;
-}
-
-.out-of-stock-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: #fef2f2;
-    color: #ef4444;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 8px;
-    border-radius: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border: 1px solid #fee2e2;
 }
 
 .card-image-wrapper img {
@@ -45,7 +29,7 @@
 }
 
 .card-content {
-    padding: 16px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -55,24 +39,27 @@
     display: inline-block;
     background: #eff6ff;
     color: #2563eb;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 10px;
     border-radius: 4px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     width: fit-content;
+    letter-spacing: 0.5px;
 }
 
 .product-title-link {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     color: #0f172a;
-    margin-bottom: 12px;
-    height: 44px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+    height: 48px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
@@ -83,21 +70,21 @@
 }
 
 .product-title-link a:hover {
-    color: #2563eb;
+    color: #1e3a8a;
 }
 
 .price-container {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     margin-top: auto;
 }
 
 .current-price {
-    font-size: 18px;
-    font-weight: 800;
-    color: #0f172a;
+    font-size: 22px;
+    font-weight: 900;
+    color: #0f3d91;
 }
 
 .old-price {
@@ -108,19 +95,19 @@
 
 .card-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 10px;
 }
 
 .details-btn-custom, .buy-btn-custom {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    padding: 10px;
-    border-radius: 6px;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
     border: none;
@@ -133,6 +120,7 @@
 
 .details-btn-custom:hover {
     background: #e2e8f0;
+    color: #0f172a;
 }
 
 .buy-btn-custom {
@@ -141,5 +129,6 @@
 }
 
 .buy-btn-custom:hover {
-    background: #1e40af;
+    background: #0f3d91;
+    box-shadow: 0 4px 12px rgba(15, 61, 145, 0.2);
 }

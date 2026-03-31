@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { saveShippingAddress } from '../redux/actions/cartActions';
 import axios from 'axios';
-import { Loader2, Truck, CreditCard, ChevronRight, Lock, Package, CheckCircle } from 'lucide-react';
+import { Loader2, Truck, CreditCard, Lock, ChevronLeft } from 'lucide-react';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
 
@@ -33,52 +33,45 @@ const Checkout = () => {
     const [loading, setLoading] = useState(false);
     const [clover, setClover] = useState(null);
 
-    // Style configuration
-    const inputStyle = "w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all text-slate-700 placeholder:text-slate-400";
-    const labelStyle = "block text-sm font-medium text-slate-700 mb-2";
+    const inputStyle = { width: '100%', padding: '16px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', outline: 'none', fontSize: '15px', fontWeight: '500', color: '#1e293b' };
+    const labelStyle = { display: 'block', textTransform: 'uppercase', fontSize: '10px', fontWeight: '900', color: '#94a3b8', letterSpacing: '0.1em', marginBottom: '8px' };
+
+    useEffect(() => {
+        const loadCloverScript = () => {
+            if (window.Clover) return;
+            const script = document.createElement('script');
+            script.src = "https://checkout.clover.com/sdk.js";
+            script.async = true;
+            document.body.appendChild(script);
+        };
+        loadCloverScript();
+    }, []);
 
     useEffect(() => {
         if (cartItems.length === 0) {
             navigate('/cart');
         } else if (!userInfo) {
             navigate('/signin?redirect=checkout');
-        } else if (step === 2 && window.Clover) {
-            setTimeout(() => {
-                const numberEl = document.querySelector('#card-number');
-                const dateEl = document.querySelector('#card-date');
-                const cvvEl = document.querySelector('#card-cvv');
-                const zipEl = document.querySelector('#card-postal-code');
-
-                if (numberEl && !numberEl.hasChildNodes()) {
-                    try {
-                        const cloverInstance = new window.Clover(import.meta.env.VITE_CLOVER_PUBLIC_KEY);
-                        const elements = cloverInstance.elements();
-
-                        const styles = {
-                            body: {
-                                fontFamily: 'system-ui, -apple-system, sans-serif',
-                                fontSize: '16px',
-                                color: '#334155',
-                                fontWeight: '400',
-                            }
-                        };
-
-                        const cardNumber = elements.create('CARD_NUMBER', { styles });
-                        const cardDate = elements.create('CARD_DATE', { styles });
-                        const cardCvv = elements.create('CARD_CVV', { styles });
-                        const cardPostalCode = elements.create('CARD_POSTAL_CODE', { styles });
-
-                        cardNumber.mount('#card-number');
-                        cardDate.mount('#card-date');
-                        cardCvv.mount('#card-cvv');
-                        cardPostalCode.mount('#card-postal-code');
-
-                        setClover(cloverInstance);
-                    } catch (err) {
-                        console.error("Clover initialization error:", err);
+        } else if (step === 2) {
+            const initCloverInterval = setInterval(() => {
+                if (window.Clover) {
+                    clearInterval(initCloverInterval);
+                    const numberEl = document.querySelector('#card-number');
+                    if (numberEl && !numberEl.hasChildNodes()) {
+                        try {
+                            const cloverInstance = new window.Clover(import.meta.env.VITE_CLOVER_PUBLIC_KEY);
+                            const elements = cloverInstance.elements();
+                            const styles = { body: { fontFamily: 'Inter, sans-serif', fontSize: '16px', color: '#1e293b' } };
+                            elements.create('CARD_NUMBER', { styles }).mount('#card-number');
+                            elements.create('CARD_DATE', { styles }).mount('#card-date');
+                            elements.create('CARD_CVV', { styles }).mount('#card-cvv');
+                            elements.create('CARD_POSTAL_CODE', { styles }).mount('#card-postal-code');
+                            setClover(cloverInstance);
+                        } catch (err) { console.error(err); }
                     }
                 }
             }, 300);
+            return () => clearInterval(initCloverInterval);
         }
     }, [userInfo, cartItems, navigate, step]);
 
@@ -87,59 +80,27 @@ const Checkout = () => {
     const shippingPrice = selectedRate ? Number(selectedRate.rate) : 0;
     const totalPrice = subtotal + taxPrice + shippingPrice;
 
-    // Calculate Shipping Rates
     const calculateShipping = async (e) => {
         e.preventDefault();
         setLoadingShipping(true);
         setShippingError(null);
         setShippingRates([]);
         setSelectedRate(null);
-
         try {
-            const { data } = await axios.post(
-                `${import.meta.env.VITE_API_URL}/shipping/rates`,
-                {
-                    shippingAddress: { address, city, state: province, postalCode, country, phone },
-                    cartItems
-                },
-                { headers: { Authorization: `Bearer ${userInfo.token}` } }
-            );
-
-            // Filter rates by allowed EasyPost account IDs
-            const allowedAccounts = [
-                'ca_e3cbd16a6eb84914985d90875a6ec074', // Canada Post
-                'ca_76d0939dc1ce4c99870bbc2844d8d02b', // FedEx
-                'ca_c5f03a14c10d4fbab837e8a35b01c7df', // UPS
-                'ca_b82a2962176446d09a48bc649977f467',  // USPS
-                'ca_fb3ad562209b4e7d930bd0f31f44f2fe'   // DHL Express
-            ];
-            const filteredRates = Array.isArray(data)
-                ? data.filter(rate => allowedAccounts.includes(rate.carrier_account_id))
-                : [];
-
-
-
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/shipping/rates`, { shippingAddress: { address, city, state: province, postalCode, country, phone }, cartItems }, { headers: { Authorization: `Bearer ${userInfo.token}` } });
+            const allowedAccounts = ['ca_e3cbd16a6eb84914985d90875a6ec074', 'ca_76d0939dc1ce4c99870bbc2844d8d02b', 'ca_c5f03a14c10d4fbab837e8a35b01c7df', 'ca_b82a2962176446d09a48bc649977f467', 'ca_fb3ad562209b4e7d930bd0f31f44f2fe'];
+            const filteredRates = Array.isArray(data) ? data.filter(rate => allowedAccounts.includes(rate.carrier_account_id)) : [];
             setShippingRates(filteredRates);
             if (filteredRates.length > 0) {
-                // Auto-select the cheapest option by default
                 const sortedRates = [...filteredRates].sort((a, b) => parseFloat(a.rate) - parseFloat(b.rate));
                 setSelectedRate(sortedRates[0]);
-            } else {
-                setShippingError("No shipping rates found for this address.");
-            }
-        } catch (error) {
-            console.error(error);
-            setShippingError(error.response?.data?.message || "Failed to calculate shipping rates.");
-        } finally {
-            setLoadingShipping(false);
-        }
+            } else { setShippingError("No logistics matches found."); }
+        } catch (error) { setShippingError("Failed to calculate secure shipping."); }
+        finally { setLoadingShipping(false); }
     };
 
     const submitShippingHandler = () => {
-        if (!selectedRate) {
-            alert("Please select a shipping method.");
-            return;
-        }
+        if (!selectedRate) { alert("Select fulfillment method."); return; }
         dispatch(saveShippingAddress({ address, city, state: province, postalCode, country, phone }));
         setStep(2);
         window.scrollTo(0, 0);
@@ -148,335 +109,153 @@ const Checkout = () => {
     const initPayment = async () => {
         try {
             setLoading(true);
-            if (!clover) {
-                alert('Payment gateway is loading. Please try again in a few seconds.');
-                setLoading(false);
-                return;
-            }
-
+            if (!clover) { alert('Gateway authenticating...'); setLoading(false); return; }
             const result = await clover.createToken();
-            if (result.errors) {
-                alert('Payment Error: ' + Object.values(result.errors).join(', '));
-                setLoading(false);
-                return;
-            }
-
-            const orderData = {
-                orderItems: cartItems,
-                shippingAddress: { address, city, state: province, postalCode, country, phone },
-                paymentMethod: 'Clover',
-                itemsPrice: subtotal,
-                taxPrice,
-                shippingPrice,
-                totalPrice,
-            };
-
-            const { data: createdOrder } = await axios.post(
-                `${import.meta.env.VITE_API_URL}/orders`,
-                orderData,
-                { headers: { Authorization: `Bearer ${userInfo.token}` } }
-            );
-
-            await axios.post(
-                `${import.meta.env.VITE_API_URL}/orders/clover/pay`,
-                {
-                    amount: totalPrice,
-                    orderId: createdOrder._id,
-                    source: result.token
-                },
-                { headers: { Authorization: `Bearer ${userInfo.token}` } }
-            );
-
+            if (result.errors) { alert('Fiscal Error: ' + Object.values(result.errors).join(', ')); setLoading(false); return; }
+            const orderData = { orderItems: cartItems, shippingAddress: { address, city, state: province, postalCode, country, phone }, paymentMethod: 'Clover', itemsPrice: subtotal, taxPrice, shippingPrice, totalPrice };
+            const { data: createdOrder } = await axios.post(`${import.meta.env.VITE_API_URL}/orders`, orderData, { headers: { Authorization: `Bearer ${userInfo.token}` } });
+            await axios.post(`${import.meta.env.VITE_API_URL}/orders/clover/pay`, { amount: totalPrice, orderId: createdOrder._id, source: result.token }, { headers: { Authorization: `Bearer ${userInfo.token}` } });
             navigate('/orders');
-
-        } catch (error) {
-            console.error(error);
-            alert(error.response?.data?.message || 'Payment failed. Please try again.');
-        } finally {
-            setLoading(false);
-        }
+        } catch (error) { alert('Transaction failed.'); }
+        finally { setLoading(false); }
     };
 
-    if (cartItems.length === 0) return null;
-
     return (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: '#ffffff' }}>
             <Navbar />
-            <div className="min-h-screen bg-gray-50 py-8 lg:py-16">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-                    <div className="mb-8 lg:mb-10">
-                        <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Checkout</h1>
-                        <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
-                            <span className={step >= 1 ? "text-blue-600 font-medium" : ""}>Shipping</span>
-                            <ChevronRight size={16} />
-                            <span className={step >= 2 ? "text-blue-600 font-medium" : ""}>Payment</span>
+            <main style={{ flexGrow: 1, paddingTop: '80px', paddingBottom: '120px' }}>
+                <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
+                    
+                    {/* Centered Executive Header */}
+                    <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+                        <h1 style={{ fontSize: '42px', fontWeight: '900', color: '#0f3d91', marginBottom: '16px', textTransform: 'uppercase' }}>Secure Checkout</h1>
+                        <div style={{ width: '80px', height: '4px', background: '#0a3382', margin: '0 auto 24px', borderRadius: '2px' }}></div>
+                        
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <div style={{ width: '32px', height: '32px', background: step >= 1 ? '#0f3d91' : '#f1f5f9', color: step >= 1 ? '#fff' : '#94a3b8', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', fontWeight: '900' }}>1</div>
+                                <span style={{ fontSize: '11px', fontWeight: '900', color: step >= 1 ? '#1e293b' : '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Logistics</span>
+                            </div>
+                            <div style={{ width: '40px', height: '2px', background: '#f1f5f9' }}></div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <div style={{ width: '32px', height: '32px', background: step >= 2 ? '#0f3d91' : '#f1f5f9', color: step >= 2 ? '#fff' : '#94a3b8', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', fontWeight: '900' }}>2</div>
+                                <span style={{ fontSize: '11px', fontWeight: '900', color: step >= 2 ? '#1e293b' : '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Settlement</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                    {/* Step 1: Logistics */}
+                    {step === 1 && (
+                        <div style={{ background: '#ffffff', borderRadius: '40px', border: '1px solid #f1f5f9', padding: '60px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.03)' }}>
+                            <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#1e293b', marginBottom: '40px', textTransform: 'uppercase', textAlign: 'center' }}>Shipment Identification</h2>
+                            <form onSubmit={calculateShipping} style={{ display: 'grid', gap: '32px' }}>
+                                <div>
+                                    <label style={labelStyle}>Primary Facility Address</label>
+                                    <input value={address} onChange={(e) => setAddress(e.target.value)} required placeholder="Street address or PO Box" style={inputStyle} />
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+                                    <div>
+                                        <label style={labelStyle}>City / Municipality</label>
+                                        <input value={city} onChange={(e) => setCity(e.target.value)} required style={inputStyle} />
+                                    </div>
+                                    <div>
+                                        <label style={labelStyle}>State / Province</label>
+                                        <input value={province} onChange={(e) => setProvince(e.target.value)} required style={inputStyle} />
+                                    </div>
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+                                    <div>
+                                        <label style={labelStyle}>Postal Code</label>
+                                        <input value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required style={inputStyle} />
+                                    </div>
+                                    <div>
+                                        <label style={labelStyle}>Country Code</label>
+                                        <input value={country} onChange={(e) => setCountry(e.target.value)} required style={inputStyle} />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label style={labelStyle}>Logistics Contact Number</label>
+                                    <input value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="+1 (555) 000-0000" style={inputStyle} />
+                                </div>
 
-                        {/* Sidebar */}
-                        <div className="lg:col-span-5 lg:order-last">
-                            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 lg:sticky lg:top-24">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-6">Order Summary</h3>
-
-                                <div className="space-y-4 mb-6 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
-                                    {cartItems.map((item, i) => (
-                                        <div key={i} className="flex gap-4 py-2">
-                                            <div className="h-16 w-16 bg-gray-50 rounded-md border border-gray-100 p-1 flex-shrink-0">
-                                                <img
-                                                    src={item.image ? (item.image.startsWith('http') ? item.image : `${import.meta.env.VITE_API_URL?.replace('/api', '') || ''}${item.image}`) : "https://placehold.co/100"}
-                                                    alt={item.title}
-                                                    className="w-full h-full object-contain"
-                                                />
+                                {shippingRates.length === 0 ? (
+                                    <button type="submit" disabled={loadingShipping} style={{ width: '100%', padding: '24px', background: '#0f3d91', color: '#ffffff', border: 'none', borderRadius: '20px', fontSize: '14px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', cursor: 'pointer', boxShadow: '0 10px 15px -3px rgba(15,61,145,0.2)' }}>
+                                        {loadingShipping ? "Querying Fleet..." : "Verify Fulfillment Options"}
+                                    </button>
+                                ) : (
+                                    <div style={{ marginTop: '20px', display: 'grid', gap: '20px' }}>
+                                        <p style={labelStyle}>Fulfillment Tiers</p>
+                                        {shippingRates.map((rate) => (
+                                            <div key={rate.id} onClick={() => setSelectedRate(rate)} style={{ padding: '24px', border: `2px solid ${selectedRate?.id === rate.id ? '#0f3d91' : '#f1f5f9'}`, borderRadius: '20px', cursor: 'pointer', background: selectedRate?.id === rate.id ? '#f8fafc' : '#ffffff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                                    <div style={{ width: '20px', height: '20px', borderRadius: '50%', border: `6px solid ${selectedRate?.id === rate.id ? '#0f3d91' : '#e2e8f0'}`, background: '#fff' }}></div>
+                                                    <div>
+                                                        <p style={{ fontWeight: '900', fontSize: '16px', color: '#1e293b', margin: '0 0 4px' }}>{rate.service}</p>
+                                                        <p style={{ fontSize: '12px', fontWeight: '700', color: '#94a3b8', margin: 0 }}>{rate.carrier} fulfillment</p>
+                                                    </div>
+                                                </div>
+                                                <span style={{ fontWeight: '900', color: '#0f3d91' }}>${parseFloat(rate.rate).toFixed(2)}</span>
                                             </div>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="text-sm font-medium text-gray-900 line-clamp-2">{item.title}</p>
-                                                <p className="text-sm text-gray-500 mt-1">Qty: {item.qty}</p>
-                                            </div>
-                                            <div className="text-right">
-                                                <p className="text-sm font-semibold text-gray-900">${(item.price * item.qty).toFixed(2)}</p>
-                                            </div>
+                                        ))}
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px', marginTop: '32px' }}>
+                                            <button type="button" onClick={() => setShippingRates([])} style={{ padding: '20px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '20px', fontWeight: '900', color: '#64748b' }}>Modify</button>
+                                            <button type="button" onClick={submitShippingHandler} style={{ padding: '20px', background: '#0a3382', border: 'none', borderRadius: '20px', fontWeight: '900', color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Secure Next Phase</button>
                                         </div>
-                                    ))}
+                                    </div>
+                                )}
+                                {shippingError && <p style={{ textAlign: 'center', color: '#ef4444', fontWeight: '800', fontSize: '13px' }}>{shippingError}</p>}
+                            </form>
+                        </div>
+                    )}
+
+                    {/* Step 2: Settlement */}
+                    {step === 2 && (
+                        <div style={{ background: '#ffffff', borderRadius: '40px', border: '1px solid #f1f5f9', padding: '60px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.03)' }}>
+                            <button onClick={() => setStep(1)} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'transparent', border: 'none', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', fontSize: '11px', marginBottom: '40px', cursor: 'pointer' }}>
+                                <ChevronLeft size={16} /> Return to Logistics
+                            </button>
+                            <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#1e293b', marginBottom: '40px', textTransform: 'uppercase', textAlign: 'center' }}>Fiscal Settlement</h2>
+                            
+                            <div style={{ display: 'grid', gap: '32px' }}>
+                                <div style={{ background: '#f8fafc', padding: '32px', borderRadius: '24px', border: '1px solid #f1f5f9' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+                                        <span style={labelStyle}>Total Invoice</span>
+                                        <span style={{ fontSize: '36px', fontWeight: '900', color: '#0f3d91' }}>${totalPrice.toFixed(2)}</span>
+                                    </div>
+                                    <p style={{ fontSize: '12px', fontWeight: '600', color: '#94a3b8', margin: 0 }}>Includes basic taxation and {selectedRate?.carrier} {selectedRate?.service} enrollment.</p>
                                 </div>
 
-                                <div className="space-y-3 pt-6 border-t border-gray-100">
-                                    <div className="flex justify-between text-sm text-gray-600">
-                                        <span>Subtotal</span>
-                                        <span>${subtotal.toFixed(2)}</span>
+                                <div style={{ display: 'grid', gap: '24px' }}>
+                                    <div>
+                                        <label style={labelStyle}>Corporate Card Number</label>
+                                        <div style={{ padding: '16px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px' }}><div id="card-number" style={{ height: '24px' }}></div></div>
                                     </div>
-                                    <div className="flex justify-between text-sm text-gray-600">
-                                        <span>Shipping</span>
-                                        <span>{shippingPrice === 0 ? 'calculated at next step' : `$${shippingPrice.toFixed(2)}`}</span>
+                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+                                        <div>
+                                            <label style={labelStyle}>Card Expiration</label>
+                                            <div style={{ padding: '16px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px' }}><div id="card-date" style={{ height: '24px' }}></div></div>
+                                        </div>
+                                        <div>
+                                            <label style={labelStyle}>Card CVV</label>
+                                            <div style={{ padding: '16px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px' }}><div id="card-cvv" style={{ height: '24px' }}></div></div>
+                                        </div>
                                     </div>
-                                    <div className="flex justify-between text-sm text-gray-600">
-                                        <span>Tax (Est. 15%)</span>
-                                        <span>${taxPrice.toFixed(2)}</span>
+                                    <button onClick={initPayment} disabled={loading} style={{ width: '100%', padding: '28px', background: '#0a3382', color: '#ffffff', border: 'none', borderRadius: '24px', fontSize: '14px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.15em', cursor: 'pointer', boxShadow: '0 10px 15px -3px rgba(10,51,130,0.2)', marginTop: '20px' }}>
+                                        {loading ? "Authenticating Flow..." : "Authorize Transaction"}
+                                    </button>
+                                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', color: '#cbd5e1' }}>
+                                        <Lock size={12} />
+                                        <span style={{ fontSize: '10px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.05em' }}>End-to-End Encrypted Secure Gateway</span>
                                     </div>
-                                </div>
-
-                                <div className="flex justify-between items-center mt-6 pt-6 border-t border-gray-100">
-                                    <span className="text-base font-bold text-gray-900">Total</span>
-                                    <span className="text-2xl font-bold text-blue-900">${totalPrice.toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
+                    )}
 
-                        {/* Main Content */}
-                        <div className="lg:col-span-7">
-                            {step === 1 ? (
-                                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">
-                                    <div className="flex items-center gap-3 mb-6">
-                                        <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
-                                            <Truck size={24} />
-                                        </div>
-                                        <h2 className="text-xl font-semibold text-gray-900">Shipping Address</h2>
-                                    </div>
-
-                                    <form onSubmit={calculateShipping} className="space-y-6">
-                                        <div>
-                                            <label className={labelStyle}>Street Address</label>
-                                            <input
-                                                value={address}
-                                                onChange={(e) => setAddress(e.target.value)}
-                                                required
-                                                placeholder="123 Main St"
-                                                className={inputStyle}
-                                            />
-                                        </div>
-
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className={labelStyle}>City</label>
-                                                <input
-                                                    value={city}
-                                                    onChange={(e) => setCity(e.target.value)}
-                                                    required
-                                                    placeholder="New York"
-                                                    className={inputStyle}
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className={labelStyle}>State / Province</label>
-                                                <input
-                                                    value={province}
-                                                    onChange={(e) => setProvince(e.target.value)}
-                                                    required
-                                                    placeholder="NY"
-                                                    className={inputStyle}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className={labelStyle}>Postal Code</label>
-                                                <input
-                                                    value={postalCode}
-                                                    onChange={(e) => setPostalCode(e.target.value)}
-                                                    required
-                                                    placeholder="10001"
-                                                    className={inputStyle}
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className={labelStyle}>Country</label>
-                                                <input
-                                                    value={country}
-                                                    onChange={(e) => setCountry(e.target.value)}
-                                                    required
-                                                    placeholder="US"
-                                                    className={inputStyle}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <label className={labelStyle}>Phone Number</label>
-                                            <input
-                                                value={phone}
-                                                onChange={(e) => setPhone(e.target.value)}
-                                                required
-                                                placeholder="+1 (555) 000-0000"
-                                                className={inputStyle}
-                                            />
-                                        </div>
-
-                                        {/* Action Buttons */}
-                                        {shippingRates.length === 0 ? (
-                                            <button
-                                                type="submit"
-                                                disabled={loadingShipping}
-                                                className="w-full mt-6 bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-70"
-                                            >
-                                                {loadingShipping ? <Loader2 className="animate-spin" /> : 'Calculate Shipping'}
-                                            </button>
-                                        ) : (
-                                            <div className="mt-8 pt-6 border-t border-gray-100">
-                                                <h3 className="text-lg font-medium text-gray-900 mb-4">Select Shipping Method</h3>
-                                                <div className="space-y-3">
-                                                    {shippingRates.map((rate) => (
-                                                        <div
-                                                            key={rate.id}
-                                                            onClick={() => setSelectedRate(rate)}
-                                                            className={`p-4 border rounded-lg cursor-pointer flex items-center justify-between transition-all ${selectedRate?.id === rate.id ? 'border-blue-600 bg-blue-50 ring-1 ring-blue-600' : 'border-gray-200 hover:border-blue-300'}`}
-                                                        >
-                                                            <div className="flex items-center gap-3">
-                                                                <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${selectedRate?.id === rate.id ? 'border-blue-600' : 'border-gray-300'}`}>
-                                                                    {selectedRate?.id === rate.id && <div className="w-2.5 h-2.5 rounded-full bg-blue-600" />}
-                                                                </div>
-                                                                <div>
-                                                                    <p className="font-medium text-gray-900">{rate.service}</p>
-                                                                    <p className="text-sm text-gray-500">{rate.carrier} • {rate.est_delivery_days ? `${rate.est_delivery_days} days` : 'Standard Delivery'}</p>
-                                                                </div>
-                                                            </div>
-                                                            <span className="font-semibold text-gray-900">${parseFloat(rate.rate).toFixed(2)}</span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-
-                                                <div className="flex gap-4 mt-6">
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setShippingRates([])}
-                                                        className="flex-1 px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50"
-                                                    >
-                                                        Change Address
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        onClick={submitShippingHandler}
-                                                        className="flex-1 bg-blue-900 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors flex items-center justify-center gap-2"
-                                                    >
-                                                        Continue to Payment <ChevronRight size={18} />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        )}
-                                        {shippingError && (
-                                            <div className="p-4 mt-4 bg-red-50 text-red-600 rounded-lg border border-red-100 text-sm">
-                                                {shippingError}
-                                            </div>
-                                        )}
-                                    </form>
-                                </div>
-                            ) : (
-                                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">
-                                    <div className="flex items-center justify-between mb-8">
-                                        <div className="flex items-center gap-3">
-                                            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
-                                                <CreditCard size={24} />
-                                            </div>
-                                            <h2 className="text-xl font-semibold text-gray-900">Payment Details</h2>
-                                        </div>
-                                        <button onClick={() => setStep(1)} className="text-sm text-blue-600 hover:text-blue-800 font-medium">
-                                            Edit Shipping
-                                        </button>
-                                    </div>
-
-                                    <div className="space-y-6">
-                                        <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                                            <div className="flex justify-between items-center mb-2">
-                                                <p className="text-sm text-gray-600">Total Amount</p>
-                                                <p className="text-2xl font-bold text-gray-900">${totalPrice.toFixed(2)}</p>
-                                            </div>
-                                            <p className="text-xs text-gray-500">Including shipping: {selectedRate ? `${selectedRate.carrier} ${selectedRate.service}` : 'Free'}</p>
-                                        </div>
-
-                                        <div className="space-y-6">
-                                            <div>
-                                                <label className={labelStyle}>Card Number</label>
-                                                <div className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-transparent outline-none transition-all">
-                                                    <div id="card-number" className="h-6"></div>
-                                                </div>
-                                            </div>
-
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                                <div>
-                                                    <label className={labelStyle}>Expiration Date</label>
-                                                    <div className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-transparent outline-none transition-all">
-                                                        <div id="card-date" className="h-6"></div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label className={labelStyle}>CVV</label>
-                                                    <div className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-transparent outline-none transition-all">
-                                                        <div id="card-cvv" className="h-6"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <label className={labelStyle}>Zip Code</label>
-                                                <div className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-transparent outline-none transition-all">
-                                                    <div id="card-postal-code" className="h-6"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex items-center gap-2 text-xs text-gray-500 mt-4">
-                                            <Lock size={12} />
-                                            <span>Your transaction is secured with TLS encryption.</span>
-                                        </div>
-
-                                        <button
-                                            onClick={initPayment}
-                                            disabled={loading}
-                                            className="w-full bg-blue-900 text-white py-4 rounded-lg font-semibold hover:bg-blue-800 transition-colors flex items-center justify-center gap-2 mt-6 disabled:opacity-70 disabled:cursor-not-allowed"
-                                        >
-                                            {loading ? <Loader2 className="animate-spin" size={20} /> : 'Pay Now'}
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
                 </div>
-            </div>
+            </main>
             <Footer />
-        </>
+        </div>
     );
 };
 

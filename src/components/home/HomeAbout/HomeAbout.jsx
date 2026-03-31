@@ -27,6 +27,9 @@ const HomeAbout = () => {
                     <img
                         src={homeAboutImage}
                         alt="Printing supplies and office setup"
+                        loading="lazy"
+                        width="1740"
+                        height="1056"
                     />
                     <div className="experience-badge">
                         <span className="years">Reliable</span>
