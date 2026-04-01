@@ -30,7 +30,9 @@ ChartJS.register(
 
 const AdminAnalytics = () => {
     const dispatch = useDispatch();
-    const { analytics, loading, error } = useSelector((state) => state.analytics);
+    // Use a more defensive selector to avoid property-from-undefined errors in high-perf renders
+    const analyticsState = useSelector((state) => state.analytics || {});
+    const { analytics, loading, error } = analyticsState;
 
     useEffect(() => {
         dispatch(fetchAnalytics());

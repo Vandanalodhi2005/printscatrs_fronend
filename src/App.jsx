@@ -8,6 +8,7 @@ import "./App.css";
 // Essential / Above the fold components (Keep static)
 import Home from "./pages/Home";
 import ScrollToTop from "./components/common/ScrollToTop";
+import LiveChat from "./components/LiveChat/LiveChat";
 
 // Lazy load everything else
 import FAQs from "./pages/FAQs";
@@ -24,6 +25,7 @@ import InkToner from "./pages/InkToner";
 import AboutUs from "./pages/AboutUs";
 import ProductDetails from "./pages/ProductDetails";
 import RefundReturnPolicy from "./pages/RefundReturnPolicy";
+import ReturnExchangePolicy from "./pages/ReturnExchangePolicy";
 import PolicyHub from "./pages/PolicyHub";
 import Blogs from "./pages/Blogs";
 import TopHomePrinters2026 from "./pages/blogs/TopHomePrinters2026";
@@ -100,6 +102,7 @@ function App() {
                 <Route path="/policies" element={<PolicyHub />} />
                 <Route path="/shipping-policy" element={<ShippingPolicy />} />
                 <Route path="/refund-return-policy" element={<RefundReturnPolicy />} />
+                <Route path="/return-exchange-policy" element={<ReturnExchangePolicy />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-conditions" element={<TermsConditions />} />
                 <Route path="/cookie-policy" element={<CookiePolicy />} />

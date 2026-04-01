@@ -11,20 +11,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            // Group heavy UI & Analytics together as they are often used together in Admin
-            if (id.includes('chart.js') || id.includes('react-chartjs-2')) {
-              return 'vendor-analytics';
-            }
-            // Keep core framework in its own chunk to avoid circularity with other vendors
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-              return 'vendor-core';
-            }
-            // Everything else can be handled by Vite's automatic chunking or group minor ones
-            // Removing lucide-react and socket-io from manual chunks to avoid circularity blowing up their exports
-          }
-        },
+        // Removing manualChunks to prevent circular dependency issues in React 19 production builds
       },
     },
     chunkSizeWarningLimit: 1000,

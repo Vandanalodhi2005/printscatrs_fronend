@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword } from '../redux/actions/userActions';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
-import PageContainer from '../components/common/PageContainer';
-import '../styles/pages.css';
+import { FiLock, FiShield, FiAlertCircle, FiCheckCircle, FiArrowRight } from 'react-icons/fi';
+
+const logo = "/PrintsCartslogo.png";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -26,71 +27,91 @@ const ResetPassword = () => {
     }
   }, [success, navigate]);
 
-  useEffect(() => {
-    if (!email) {
-       // If no email in state, maybe redirect back to forgot password or let user type it?
-       // For now, let's assume valid flow. Or redirect.
-       // navigate('/forgot-password');
-    }
-  }, [email, navigate]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      alert('Verification mismatch identification.');
       return;
     }
     dispatch(resetPassword(email, otp, password));
   };
 
-  if (!email) {
-      return (
-        <>
-            <Navbar />
-            <PageContainer>
-                 <div className="auth-card mx-auto max-w-md">
-                     <p>Invalid access. Please initiate password reset again.</p>
-                     <Link to="/forgot-password" className="forgot-link">Forgot Password</Link>
-                 </div>
-            </PageContainer>
-            <Footer />
-        </>
-      )
-  }
+  const inputStyle = { width: '100%', padding: '18px 24px 18px 52px', background: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '16px', fontSize: '15px', fontWeight: '600', outline: 'none', transition: 'all 0.3s' };
+  const labelStyle = { fontSize: '11px', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' };
 
   return (
-    <>
+    <div style={{ background: '#f8fafc', minHeight: '100vh', fontFamily: "'Inter', sans-serif" }}>
       <Navbar />
-      <PageContainer>
-        <div className="auth-card mx-auto max-w-md">
-          <h1>Reset Password</h1>
-          <p className="auth-subtitle">Set a new password for <strong>{email}</strong></p>
+      
+      <main style={{ paddingTop: '120px', paddingBottom: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: '100%', maxWidth: '480px', padding: '0 24px' }}>
+          
+          <div style={{ background: '#ffffff', borderRadius: '32px', padding: '60px 48px', boxShadow: '0 20px 60px -10px rgba(0,0,0,0.03)', border: '1px solid #f1f5f9' }}>
+            
+            {/* LOGO & HEADER */}
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+                <img src={logo} alt="PrintsCarts" style={{ height: '72px', width: 'auto', objectFit: 'contain', margin: '0 auto 32px' }} />
+                <h1 style={{ fontSize: '28px', fontWeight: '900', color: '#0f172a', margin: '0 0 8px', letterSpacing: '-0.02em' }}>Reset Password</h1>
+                <p style={{ fontSize: '15px', color: '#64748b', fontWeight: '500', margin: 0, lineHeight: 1.5 }}>
+                  Define your new security manifest for <strong>{email}</strong>
+                </p>
+            </div>
 
-          {error && <div className="error-message"><span>{error}</span></div>}
-          {success && <div className="text-sm text-green-600 font-semibold mb-4">Password reset successfully! Redirecting...</div>}
+            {error && (
+              <div style={{ background: '#fff1f2', border: '1px solid #fecaca', padding: '16px', borderRadius: '16px', color: '#be123c', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                <FiAlertCircle /> {error}
+              </div>
+            )}
 
-          <form onSubmit={handleSubmit} className="auth-form">
-              <div className="form-group">
-                <label>Verification Code (OTP)</label>
-                <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} placeholder="Enter OTP sent to email" required />
+            {success && (
+              <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '16px', borderRadius: '16px', color: '#16a34a', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                <FiCheckCircle /> Credentials verified. Redirecting...
               </div>
-              <div className="form-group">
-                <label>New Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter new password" required />
-              </div>
-              <div className="form-group">
-                <label>Confirm Password</label>
-                <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm new password" required />
-              </div>
+            )}
 
-              <div className="pt-2">
-                <button type="submit" className="auth-submit-btn" disabled={loading}>{loading ? 'Resetting...' : 'Reset Password'}</button>
-              </div>
-          </form>
+            {!email ? (
+               <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                   <p style={{ fontSize: '14px', color: '#64748b', fontWeight: '600', marginBottom: '24px' }}>Invalid access. Please re-initiate procurement code.</p>
+                   <Link to="/forgot-password" style={{ display: 'inline-block', padding: '14px 28px', background: '#0f3d91', color: '#ffffff', borderRadius: '12px', fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', textDecoration: 'none' }}>Re-initiate Request</Link>
+               </div>
+            ) : (
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label style={labelStyle}>Encryption Code (OTP)</label>
+                    <div style={{ position: 'relative' }}>
+                      <FiShield style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                      <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} placeholder="6-digit verification code" required style={inputStyle} />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label style={labelStyle}>New Access Key</label>
+                    <div style={{ position: 'relative' }}>
+                      <FiLock style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="New secure password" required style={inputStyle} />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label style={labelStyle}>Re-verify Key</label>
+                    <div style={{ position: 'relative' }}>
+                      <FiLock style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                      <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Repeat new password" required style={inputStyle} />
+                    </div>
+                  </div>
+
+                  <button type="submit" disabled={loading} style={{ width: '100%', padding: '18px', background: '#0f3d91', color: '#ffffff', border: 'none', borderRadius: '16px', fontSize: '14px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', cursor: 'pointer', transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '20px', opacity: loading ? 0.7 : 1 }}>
+                    {loading ? 'Re-encrypting...' : <>Update Registry Key <FiArrowRight /></>}
+                  </button>
+                </form>
+            )}
+
+          </div>
         </div>
-      </PageContainer>
+      </main>
+      
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/actions/userActions';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
+import { FiMail, FiLock, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
+
 const logo = "/PrintsCartslogo.png";
-import '../styles/pages.css';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +22,6 @@ const SignIn = () => {
 
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Parse query params safely
   const queryParams = new URLSearchParams(location.search);
   const redirect = queryParams.get('redirect');
   const messageParam = queryParams.get('message');
@@ -34,123 +34,124 @@ const SignIn = () => {
 
   useEffect(() => {
     if (userInfo) {
-        setSuccessMessage('Logged In Successfully');
-        
-        const timer = setTimeout(() => {
-            if (redirect) {
-                navigate(`/${redirect}`);
-            } else if (userInfo.isAdmin) {
-              navigate('/admin/dashboard');
-            } else {
-              navigate('/');
-            }
-        }, 1500);
-        
-        return () => clearTimeout(timer);
+        if (redirect) {
+            navigate(`/${redirect}`);
+        } else if (userInfo.isAdmin) {
+            navigate('/admin/dashboard');
+        } else {
+            navigate('/');
+        }
     }
   }, [userInfo, navigate, redirect]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email || !password) {
-       return; 
-    }
-
+    if (!email || !password) return;
     dispatch(login(email, password, isAdminLogin));
   };
 
   return (
-    <>
+    <div style={{ background: '#f8fafc', minHeight: '100vh', fontFamily: "'Inter', sans-serif" }}>
       <Navbar />
-      <div className="auth-page">
-        <div className="auth-container">
-          <div className="auth-card">
-            <div className="flex justify-center mb-6">
-                <img src={logo} alt="PrintsCarts" className="h-12 md:h-24 w-auto object-contain" />
+      
+      <main style={{ paddingTop: '120px', paddingBottom: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: '100%', maxWidth: '480px', padding: '0 24px' }}>
+          
+          <div style={{ background: '#ffffff', borderRadius: '32px', padding: '60px 48px', boxShadow: '0 20px 60px -10px rgba(0,0,0,0.03)', border: '1px solid #f1f5f9' }}>
+            
+            {/* LOGO MANIFEST */}
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+                <img src={logo} alt="PrintsCarts" style={{ height: '72px', width: 'auto', objectFit: 'contain', margin: '0 auto 32px' }} />
+                <h1 style={{ fontSize: '28px', fontWeight: '900', color: '#0f172a', margin: '0 0 8px', letterSpacing: '-0.02em' }}>{isAdminLogin ? 'Admin Access' : 'Sign In'}</h1>
+                <p style={{ fontSize: '15px', color: '#64748b', fontWeight: '500', margin: 0 }}>Authenticated access to procurement terminal.</p>
             </div>
-            <h1>{isAdminLogin ? 'Admin Sign In' : 'Sign In'}</h1>
-            <p className="auth-subtitle">Welcome back! Please sign in to your account.</p>
 
             {successMessage && (
-              <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4 flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span>{successMessage}</span>
-              </div>
+               <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '16px', borderRadius: '16px', color: '#16a34a', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                 <FiCheckCircle /> {successMessage}
+               </div>
             )}
 
             {error && (
-              <div className="error-message">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <circle cx="10" cy="10" r="9" fill="#ef4444"/>
-                  <path d="M10 6V10M10 14H10.01" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-                <span>{error}</span>
+              <div style={{ background: '#fff1f2', border: '1px solid #fecaca', padding: '16px', borderRadius: '16px', color: '#be123c', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                <FiAlertCircle /> {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="auth-form">
-              <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                  required
-                />
-              </div>
-
-              <div className="form-options">
-                <label className="checkbox-label">
-                  <input 
-                      type="checkbox" 
-                      onChange={(e) => setIsAdminLogin(e.target.checked)}
-                      checked={isAdminLogin}
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '11px', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Email Secure</label>
+                <div style={{ position: 'relative' }}>
+                  <FiMail style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="name@company.com"
+                    required
+                    style={{ width: '100%', padding: '18px 24px 18px 52px', background: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '16px', fontSize: '15px', fontWeight: '600', outline: 'none', transition: 'all 0.3s' }}
+                    onFocus={(e) => e.target.style.borderColor = '#0f3d91'}
+                    onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
                   />
-                  <span>Login as Admin</span>
-                </label>
-                <Link to="/forgot-password" className="forgot-link">Forgot Password?</Link>
+                </div>
               </div>
 
-              <button type="submit" className="auth-submit-btn" disabled={loading}>
-                {loading ? 'Signing In...' : 'Sign In'}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '11px', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Password</label>
+                <div style={{ position: 'relative' }}>
+                  <FiLock style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                    style={{ width: '100%', padding: '18px 24px 18px 52px', background: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '16px', fontSize: '15px', fontWeight: '600', outline: 'none', transition: 'all 0.3s' }}
+                    onFocus={(e) => e.target.style.borderColor = '#0f3d91'}
+                    onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', fontWeight: '600', color: '#64748b', cursor: 'pointer' }}>
+                  <input 
+                    type="checkbox" 
+                    onChange={(e) => setIsAdminLogin(e.target.checked)}
+                    checked={isAdminLogin}
+                    style={{ width: '18px', height: '18px' }}
+                  />
+                  Admin
+                </label>
+                <Link to="/forgot-password" style={{ fontSize: '13px', fontWeight: '700', color: '#0f3d91', textDecoration: 'none' }}>Forgot Password?</Link>
+              </div>
+
+              <button type="submit" disabled={loading} style={{ width: '100%', padding: '18px', background: '#0f3d91', color: '#ffffff', border: 'none', borderRadius: '16px', fontSize: '14px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', cursor: 'pointer', transition: 'all 0.3s ease', opacity: loading ? 0.7 : 1 }}>
+                {loading ? 'Decrypting...' : 'Sign In'}
               </button>
             </form>
 
-            <div className="auth-divider">
-              <span>OR</span>
+            <div style={{ margin: '32px 0', display: 'flex', alignItems: 'center', gap: '20px' }}>
+              <div style={{ flex: 1, height: '1px', background: '#f1f5f9' }}></div>
+              <span style={{ fontSize: '11px', fontWeight: '900', color: '#cbd5e1' }}>OR</span>
+              <div style={{ flex: 1, height: '1px', background: '#f1f5f9' }}></div>
             </div>
-            
-             <center>
-             {!isAdminLogin ? (
-                <p>New customer? <Link to="/signup" className="text-indigo-600 font-semibold">Create an account</Link></p>
-             ) : (
-                <p>Not an admin? <span className="text-indigo-600 font-semibold cursor-pointer" onClick={() => setIsAdminLogin(false)}>User Login</span></p>
-             )}
-             </center>
+
+            <div style={{ textAlign: 'center' }}>
+              {!isAdminLogin ? (
+                <p style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>New user? <Link to="/signup" style={{ color: '#0f3d91', fontWeight: '800', textDecoration: 'none' }}>Sign Up</Link></p>
+              ) : (
+                <p style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>Standard user? <span style={{ color: '#0f3d91', fontWeight: '800', cursor: 'pointer' }} onClick={() => setIsAdminLogin(false)}>User Terminal</span></p>
+              )}
+            </div>
 
           </div>
         </div>
-      </div>
+      </main>
+      
       <Footer />
-    </>
+    </div>
   );
 };
 
 export default SignIn;
-

@@ -65,7 +65,7 @@ const Checkout = () => {
                             elements.create('CARD_NUMBER', { styles }).mount('#card-number');
                             elements.create('CARD_DATE', { styles }).mount('#card-date');
                             elements.create('CARD_CVV', { styles }).mount('#card-cvv');
-                            elements.create('CARD_POSTAL_CODE', { styles }).mount('#card-postal-code');
+                            elements.create('CARD_POSTAL_CODE', { styles, defaultValue: postalCode }).mount('#card-postal-code');
                             setClover(cloverInstance);
                         } catch (err) { console.error(err); }
                     }
@@ -128,7 +128,7 @@ const Checkout = () => {
                     
                     {/* Centered Executive Header */}
                     <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-                        <h1 style={{ fontSize: '42px', fontWeight: '900', color: '#0f3d91', marginBottom: '16px', textTransform: 'uppercase' }}>Secure Checkout</h1>
+                        <h1 style={{ fontSize: '42px', fontWeight: '900', color: '#0f3d91', marginBottom: '16px', textTransform: 'uppercase' }}>Checkout</h1>
                         <div style={{ width: '80px', height: '4px', background: '#0a3382', margin: '0 auto 24px', borderRadius: '2px' }}></div>
                         
                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px' }}>
@@ -139,7 +139,7 @@ const Checkout = () => {
                             <div style={{ width: '40px', height: '2px', background: '#f1f5f9' }}></div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                 <div style={{ width: '32px', height: '32px', background: step >= 2 ? '#0f3d91' : '#f1f5f9', color: step >= 2 ? '#fff' : '#94a3b8', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', fontWeight: '900' }}>2</div>
-                                <span style={{ fontSize: '11px', fontWeight: '900', color: step >= 2 ? '#1e293b' : '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Settlement</span>
+                                <span style={{ fontSize: '11px', fontWeight: '900', color: step >= 2 ? '#1e293b' : '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Payment</span>
                             </div>
                         </div>
                     </div>
@@ -198,8 +198,8 @@ const Checkout = () => {
                                             </div>
                                         ))}
                                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px', marginTop: '32px' }}>
-                                            <button type="button" onClick={() => setShippingRates([])} style={{ padding: '20px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '20px', fontWeight: '900', color: '#64748b' }}>Modify</button>
-                                            <button type="button" onClick={submitShippingHandler} style={{ padding: '20px', background: '#0a3382', border: 'none', borderRadius: '20px', fontWeight: '900', color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Secure Next Phase</button>
+                                            <button type="button" onClick={() => setShippingRates([])} style={{ padding: '20px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '20px', fontWeight: '900', color: '#64748b' }}>Change Address</button>
+                                            <button type="button" onClick={submitShippingHandler} style={{ padding: '20px', background: '#0a3382', border: 'none', borderRadius: '20px', fontWeight: '900', color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Next</button>
                                         </div>
                                     </div>
                                 )}
@@ -214,7 +214,7 @@ const Checkout = () => {
                             <button onClick={() => setStep(1)} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'transparent', border: 'none', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', fontSize: '11px', marginBottom: '40px', cursor: 'pointer' }}>
                                 <ChevronLeft size={16} /> Return to Logistics
                             </button>
-                            <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#1e293b', marginBottom: '40px', textTransform: 'uppercase', textAlign: 'center' }}>Fiscal Settlement</h2>
+                            <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#1e293b', marginBottom: '40px', textTransform: 'uppercase', textAlign: 'center' }}>Confirm Order</h2>
                             
                             <div style={{ display: 'grid', gap: '32px' }}>
                                 <div style={{ background: '#f8fafc', padding: '32px', borderRadius: '24px', border: '1px solid #f1f5f9' }}>
@@ -232,7 +232,7 @@ const Checkout = () => {
                                     </div>
                                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
                                         <div>
-                                            <label style={labelStyle}>Card Expiration</label>
+                                            <label style={labelStyle}>Card Expiry Date</label>
                                             <div style={{ padding: '16px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px' }}><div id="card-date" style={{ height: '24px' }}></div></div>
                                         </div>
                                         <div>
@@ -240,8 +240,12 @@ const Checkout = () => {
                                             <div style={{ padding: '16px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px' }}><div id="card-cvv" style={{ height: '24px' }}></div></div>
                                         </div>
                                     </div>
+                                    <div>
+                                        <label style={labelStyle}>Billing Zip / Postal Code</label>
+                                        <div style={{ padding: '16px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px' }}><div id="card-postal-code" style={{ height: '24px' }}></div></div>
+                                    </div>
                                     <button onClick={initPayment} disabled={loading} style={{ width: '100%', padding: '28px', background: '#0a3382', color: '#ffffff', border: 'none', borderRadius: '24px', fontSize: '14px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.15em', cursor: 'pointer', boxShadow: '0 10px 15px -3px rgba(10,51,130,0.2)', marginTop: '20px' }}>
-                                        {loading ? "Authenticating Flow..." : "Authorize Transaction"}
+                                        {loading ? "Authenticating Flow..." : "Confirm Order"}
                                     </button>
                                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', color: '#cbd5e1' }}>
                                         <Lock size={12} />

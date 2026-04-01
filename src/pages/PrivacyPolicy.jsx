@@ -9,149 +9,198 @@ const PrivacyPolicy = () => {
             <Navbar />
             <main className="policy-simple-container">
                 <div className="policy-simple-header">
-                    <p className="last-updated">Site Policy Profile</p>
                     <h1>Privacy Policy – Prints Carts</h1>
-                    <p className="last-updated">Effective Date: January 26, 2026</p>
+                    <p className="last-updated">Last Updated: January 26, 2026</p>
                 </div>
 
                 <div className="policy-simple-content">
                     <div className="intro">
-                        Prints Carts (“we,” “our,” or “us”) is committed to protecting your privacy and handling your personal information responsibly. This Privacy Policy explains how we collect, use, store, and protect your information when you visit our website or make a purchase from www.printscarts.com.
-                    </div>
-                    
-                    <div className="consent">
-                        <strong>Important Notice:</strong> By using our website, you agree to the terms outlined in this Privacy Policy. We value your trust and prioritize data security in all our operations.
+                        Prints Carts (“we,” “our,” or “us”) is committed to protecting your privacy and handling your personal information responsibly. This Privacy Policy explains how we collect, use, store, and protect your information when you visit our website or make a purchase from www.printscarts.com.<br /><br />
+                        By using our website, you agree to the terms outlined in this Privacy Policy.
                     </div>
 
                     <section>
                         <h2>1. Company Information</h2>
-                        <p><strong>Prints Carts</strong><br />
+                        <p>
+                        Prints Carts<br />
                         7181 Beacon Dr 15<br />
                         Reno, NV 89506<br />
                         United States<br />
                         Email: support@printscarts.com<br />
-                        Website: www.printscarts.com</p>
+                        Website: www.printscarts.com
+                        </p>
                         <p>We operate as an independent online retailer offering printers, ink, toner, and printing supplies. All brand names and trademarks belong to their respective owners and are used only for identification.</p>
                     </section>
 
                     <section>
                         <h2>2. Information We Collect</h2>
-                        <p>We collect only the information necessary to process orders, support customers, and operate our website efficiently.</p>
+                        <p>We collect only the information necessary to process orders, support customers, and operate our website.</p>
                         
                         <h3>A. Information You Provide Voluntarily</h3>
                         <p>This includes information you submit during checkout, account creation, or when contacting us:</p>
                         <ul>
-                            <li>Full Name</li>
-                            <li>Email Address</li>
-                            <li>Billing and Shipping Address</li>
-                            <li>Phone Number (optional)</li>
-                            <li>Payment Details (processed securely through third-party payment providers)</li>
-                            <li>Order History & Communication Logs</li>
+                            <li>Name</li>
+                            <li>Email address</li>
+                            <li>Billing and shipping address</li>
+                            <li>Phone number (optional)</li>
+                            <li>Payment details (processed securely through third-party payment providers)</li>
+                            <li>Order history</li>
+                            <li>Messages or inquiries you send us</li>
                         </ul>
 
                         <h3>B. Automatically Collected Information</h3>
-                        <p>When you browse our website, we collect limited technical data to ensure site performance and security:</p>
+                        <p>When you browse our website, we collect limited technical data such as:</p>
                         <ul>
-                            <li>IP Address & Browser Type</li>
-                            <li>Device Information & OS</li>
-                            <li>Pages Viewed & Time Stamps</li>
-                            <li>Essential Session Data for Cart Functionality</li>
+                            <li>IP address</li>
+                            <li>Browser type</li>
+                            <li>Device information</li>
+                            <li>Pages viewed</li>
+                            <li>Essential session data for cart functionality</li>
+                            <li>Basic usage information required for site security</li>
                         </ul>
-                        <p className="notice">Privacy Commitment: We do not use third-party tracking tools for behavioral advertising or data profiling.</p>
+                        <p>We do not use third-party tracking tools for behavioral advertising.</p>
 
                         <h3>C. Cookies & Essential Technologies</h3>
-                        <p>We use cookies that are strictly essential for website operations, such as secure checkout and cart management. We do not use advertising cookies or third-party tracking pixels.</p>
+                        <p>We use cookies that are essential for:</p>
+                        <ul>
+                            <li>Secure checkout</li>
+                            <li>Cart function</li>
+                            <li>Website performance</li>
+                            <li>Basic user preferences</li>
+                        </ul>
+                        <p>We do not use advertising cookies or third-party tracking pixels. For more details, see our Cookie Policy.</p>
                     </section>
 
                     <section>
                         <h2>3. How We Use Your Information</h2>
-                        <p>We process your information only for legitimate business purposes and essential operational needs:</p>
+                        <p>We process your information only for legitimate business purposes:</p>
                         
                         <div className="sub-section">
                             <h4>Order Processing & Fulfillment</h4>
                             <ul>
-                                <li>To manage payments, shipping, and delivery schedules</li>
-                                <li>To send automated order confirmations and status updates</li>
-                                <li>To verify product availability and inventory</li>
+                                <li>To manage orders, payments, shipping, and delivery</li>
+                                <li>To send order confirmation and updates</li>
+                                <li>To verify product availability</li>
                             </ul>
                         </div>
 
                         <div className="sub-section">
-                            <h4>Customer Support & Correspondence</h4>
+                            <h4>Customer Support</h4>
                             <ul>
-                                <li>To respond to product inquiries and technical questions</li>
-                                <li>To assist with returns, refunds, and order modifications</li>
-                                <li>To provide general consumer assistance</li>
+                                <li>To respond to product inquiries</li>
+                                <li>To assist with returns, refunds, and order status</li>
+                                <li>To provide general support</li>
                             </ul>
                         </div>
 
                         <div className="sub-section">
-                            <h4>Operational Integrity & Security</h4>
+                            <h4>Operational & Security Purposes</h4>
                             <ul>
-                                <li>To monitor website performance and resolve errors</li>
-                                <li>To protect against fraud, unauthorized access, and security breaches</li>
-                                <li>To ensure a safe and secure checkout experience</li>
+                                <li>To improve website performance</li>
+                                <li>To protect against fraud and unauthorized activity</li>
+                                <li>To ensure secure checkout</li>
                             </ul>
                         </div>
 
-                        <p className="important">Data Protection Guarantee: We do not sell, rent, or share your personal information with third parties for marketing or advertising purposes.</p>
+                        <div className="sub-section">
+                            <h4>Legal Requirements</h4>
+                            <p>To comply with applicable laws, tax requirements, and fraud-prevention rules.</p>
+                        </div>
+
+                        <p>We do not sell or share your personal information for advertising purposes.</p>
                     </section>
 
                     <section>
                         <h2>4. Information Sharing</h2>
-                        <p>We only share your information with trusted partners necessary for providing our services:</p>
+                        <p>We only share your information with trusted third parties necessary for essential operations:</p>
+                        <p>We may share information with:</p>
                         <ul>
-                            <li>Secure Payment Processors (e.g., Stripe, PayPal)</li>
-                            <li>Logistics & Shipping Carriers (e.g., UPS, FedEx)</li>
-                            <li>Essential IT & Managed Hosting Providers</li>
-                            <li>Legal Authorities (when strictly required by law)</li>
+                            <li>Payment processors</li>
+                            <li>Shipping carriers</li>
+                            <li>Customer communication tools</li>
+                            <li>Fraud-prevention services</li>
+                            <li>IT and hosting providers</li>
+                            <li>Legal authorities (when required by law)</li>
                         </ul>
-                        <p>All service partners are contractually required to handle your data with the highest level of security and confidentiality.</p>
+                        <p>All partners are contractually obligated to handle your information securely.</p>
+                        <p>We DO NOT:</p>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            <li>❌ Sell personal data</li>
+                            <li>❌ Share data for advertising purposes</li>
+                            <li>❌ Allow unauthorized access</li>
+                        </ul>
                     </section>
 
                     <section>
-                        <h2>5. Data Security Protocols</h2>
-                        <p>We implement robust industry-standard security measures to safeguard your information:</p>
+                        <h2>5. Data Security</h2>
+                        <p>We use industry-standard security measures to help protect your information, including:</p>
                         <ul>
-                            <li>Full SSL/TLS Encryption for all web traffic</li>
-                            <li>PCI-Compliant Payment Processing</li>
-                            <li>Stringent Internal Access Controls</li>
-                            <li>Continuous Monitoring for Suspicious Activity</li>
+                            <li>SSL/TLS encryption</li>
+                            <li>Secure checkout</li>
+                            <li>Access controls</li>
+                            <li>Safe data-handling practices</li>
+                            <li>Regular monitoring for suspicious activity</li>
                         </ul>
-                        <p>While no method is 100% secure, we are committed to maintaining the highest security hardware and software standards.</p>
+                        <p>No method of electronic transmission is 100% secure, but we take reasonable steps to safeguard your information.</p>
                     </section>
 
                     <section>
                         <h2>6. Your Privacy Rights</h2>
-                        <p>Depending on your jurisdiction, you have specific rights regarding your personal data:</p>
+                        <p>Depending on your location, you may have the right to:</p>
                         <ul>
-                            <li><strong>Right of Access:</strong> Request a full copy of the data we hold.</li>
-                            <li><strong>Right to Rectification:</strong> Request updates to inaccurate information.</li>
-                            <li><strong>Right to Erasure:</strong> Request data deletion (subject to legal retention rules).</li>
-                            <li><strong>Right to Opt Out:</strong> Unsubscribe from non-essential communications at any time.</li>
+                            <li>Access Your Data: Request a copy of the personal information we hold.</li>
+                            <li>Request Corrections: Update inaccurate or incomplete information.</li>
+                            <li>Request Deletion: Ask to have your information deleted (subject to legal requirements).</li>
+                            <li>Opt Out of Non-Essential Communications: Unsubscribe from non-essential emails anytime.</li>
+                            <li>Data Portability: Receive your data in a structured format.</li>
                         </ul>
 
-                        <h3>CCPA/CPRA Compliance (California)</h3>
-                        <p>California residents have the right to know what data is collected, the right to request deletion, and the right to non-discrimination for exercising these rights. Prints Carts does not sell personal information.</p>
+                        <h3>CCPA/CPRA Rights (California Residents)</h3>
+                        <ul>
+                            <li>Right to know what data is collected</li>
+                            <li>Right to request deletion</li>
+                            <li>Right to opt out of “sale” or “sharing” of personal information</li>
+                            <li>Right to non-discrimination</li>
+                        </ul>
+                        <p>Prints Carts does not sell or share personal information under the CCPA/CPRA definitions.</p>
+                        <p>How to Exercise These Rights: Email us at support@printscarts.com. We may request identity verification for your safety.</p>
                     </section>
 
                     <section>
-                        <h2>7. Data Retention & Storage</h2>
-                        <p>We retain your information only as long as necessary to fulfill orders, meet tax obligations, and maintain business records. Once no longer required, data is securely purged or anonymized.</p>
+                        <h2>7. Data Retention</h2>
+                        <p>We retain your information only as long as necessary to:</p>
+                        <ul>
+                            <li>Fulfill orders</li>
+                            <li>Meet legal and tax obligations</li>
+                            <li>Maintain business records</li>
+                            <li>Prevent fraud</li>
+                            <li>Resolve disputes</li>
+                        </ul>
+                        <p>When no longer needed, data is securely deleted or anonymized.</p>
                     </section>
 
                     <section>
-                        <h2>8. International Data Privacy</h2>
-                        <p>By using our website, you understand that your information may be processed in the United States, where we maintain our primary operations and secure servers.</p>
+                        <h2>8. Third-Party Links</h2>
+                        <p>Our website may include links to external websites for additional information. Prints Carts is not responsible for the privacy practices or content of third-party websites. We recommend reviewing their policies before submitting any information.</p>
                     </section>
 
                     <section>
-                        <h2>9. Contact Our Privacy Team</h2>
-                        <p>For any privacy-related requests or questions about our data practices:</p>
+                        <h2>9. Children’s Privacy</h2>
+                        <p>Our services are not intended for children under 13. We do not knowingly collect personal information from children. If we learn that we have unintentionally collected such data, we will delete it promptly.</p>
+                    </section>
+
+                    <section>
+                        <h2>10. Changes to This Privacy Policy</h2>
+                        <p>We may update this Privacy Policy to reflect changes in our practices or legal requirements. Updates will be posted on this page with a revised “Last Updated” date. Continued use of our website means you accept the updated terms.</p>
+                    </section>
+
+                    <section>
+                        <h2>11. Contact Us About Privacy</h2>
+                        <p>If you have questions, concerns, or requests related to your personal information, please contact us:</p>
                         <p>
-                            <strong>Email:</strong> support@printscarts.com<br />
-                            <strong>Mailing Address:</strong> 7181 Beacon Dr 15, Reno, NV 89506<br />
-                            <strong>Official Website:</strong> www.printscarts.com
+                            Email: support@printscarts.com<br />
+                            Address: 7181 Beacon Dr 15, Reno, NV 89506<br />
+                            Website: www.printscarts.com
                         </p>
                     </section>
                 </div>

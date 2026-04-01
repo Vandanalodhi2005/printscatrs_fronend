@@ -339,7 +339,7 @@ const AdminOrders = () => {
                                 {selectedOrder.orderItems.map((item, index) => (
                                     <div key={index} className="flex gap-4 items-center p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors">
                                         <div className="w-16 h-16 bg-white border rounded-lg flex items-center justify-center overflow-hidden shrink-0">
-                                            <img src={item.image.startsWith('http') ? item.image : `http://localhost:5000${item.image}`} className="w-full h-full object-contain" alt="" />
+                                            <img src={item.image.startsWith('http') ? item.image : `${import.meta.env.VITE_API_URL.replace('/api', '')}${item.image}`} className="w-full h-full object-contain" alt="" />
                                         </div>
                                         <div className="flex-1">
                                             <h4 className="font-bold text-slate-800 text-sm line-clamp-2">{item.name}</h4>

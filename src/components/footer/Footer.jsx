@@ -77,7 +77,8 @@ const Footer = () => {
             <h4 className="footer-section-title">Policies</h4>
             <ul className="footer-links">
               <li><Link to="/shipping-policy">Shipping Policy</Link></li>
-              <li><Link to="/refund-return-policy">Returns & Refunds</Link></li>
+              <li><Link to="/refund-return-policy">Refund & Return Policy</Link></li>
+              <li><Link to="/return-exchange-policy">Return & Exchange Policy</Link></li>
               <li><Link to="/privacy-policy">Privacy Policy</Link></li>
               <li><Link to="/terms-conditions">Terms & Conditions</Link></li>
             </ul>

@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { forgotPassword } from '../redux/actions/userActions';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
-import PageContainer from '../components/common/PageContainer';
-import '../styles/pages.css';
+import { FiMail, FiAlertCircle, FiArrowRight } from 'react-icons/fi';
+
+const logo = "/PrintsCartslogo.png";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -30,186 +31,66 @@ const ForgotPassword = () => {
   };
 
   return (
-    <>
+    <div style={{ background: '#f8fafc', minHeight: '100vh', fontFamily: "'Inter', sans-serif" }}>
       <Navbar />
-      <PageContainer>
-        <div className="auth-wrapper">
-          <div className="auth-card">
-            <h1>Forgot password</h1>
-            <p className="auth-subtitle">
-              Enter your email address and we’ll send you an OTP to reset your password.
-            </p>
+      
+      <main style={{ paddingTop: '120px', paddingBottom: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: '100%', maxWidth: '480px', padding: '0 24px' }}>
+          
+          <div style={{ background: '#ffffff', borderRadius: '32px', padding: '60px 48px', boxShadow: '0 20px 60px -10px rgba(0,0,0,0.03)', border: '1px solid #f1f5f9' }}>
+            
+            {/* LOGO & HEADER */}
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+                <img src={logo} alt="PrintsCarts" style={{ height: '72px', width: 'auto', objectFit: 'contain', margin: '0 auto 32px' }} />
+                <h1 style={{ fontSize: '28px', fontWeight: '900', color: '#0f172a', margin: '0 0 8px', letterSpacing: '-0.02em' }}>Forgot Password</h1>
+                <p style={{ fontSize: '15px', color: '#64748b', fontWeight: '500', margin: 0, lineHeight: 1.5 }}>
+                  Enter your encrypted node email to receive a secure verification sequence.
+                </p>
+            </div>
 
             {error && (
-              <div className="error-message">{error}</div>
+              <div style={{ background: '#fff1f2', border: '1px solid #fecaca', padding: '16px', borderRadius: '16px', color: '#be123c', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                <FiAlertCircle /> {error}
+              </div>
             )}
 
-            <form onSubmit={handleSubmit} className="auth-form">
-              <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@example.com"
-                  required
-                />
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '11px', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Email Secure Node</label>
+                <div style={{ position: 'relative' }}>
+                  <FiMail style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="name@company.com"
+                    required
+                    style={{ width: '100%', padding: '18px 24px 18px 52px', background: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '16px', fontSize: '15px', fontWeight: '600', outline: 'none', transition: 'all 0.3s' }}
+                    onFocus={(e) => e.target.style.borderColor = '#0f3d91'}
+                    onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+                  />
+                </div>
               </div>
 
-              <button
-                type="submit"
-                className="auth-submit-btn"
-                disabled={loading}
-              >
-                {loading ? 'Sending OTP...' : 'Send OTP'}
+              <button type="submit" disabled={loading} style={{ width: '100%', padding: '18px', background: '#0f3d91', color: '#ffffff', border: 'none', borderRadius: '16px', fontSize: '14px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', cursor: 'pointer', transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', opacity: loading ? 0.7 : 1 }}>
+                {loading ? 'Encrypting...' : <>Send Secure OTP <FiArrowRight /></>}
               </button>
-
-              <div className="auth-switch">
-                Remembered your password? <Link to="/signin">Sign in</Link>
-              </div>
             </form>
+
+            <div style={{ margin: '32px 0', borderBottom: '1px solid #f1f5f9' }}></div>
+
+            <div style={{ textAlign: 'center' }}>
+              <p style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>
+                Remembered your credentials? <Link to="/signin" style={{ color: '#0f3d91', fontWeight: '800', textDecoration: 'none' }}>Back to Sign In</Link>
+              </p>
+            </div>
+
           </div>
         </div>
-      </PageContainer>
+      </main>
+      
       <Footer />
-
-      <style>
-        {`/* Center wrapper */
-.auth-wrapper {
-  min-height: calc(100vh - 160px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 16px;
-}
-
-/* Card */
-.auth-card {
-  width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 36px 32px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-}
-
-/* Headings */
-.auth-card h1 {
-  margin-bottom: 8px;
-  font-size: 26px;
-  font-weight: 700;
-}
-
-.auth-subtitle {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 28px;
-}
-
-/* Form */
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.form-group label {
-  font-size: 13px;
-  color: #6b7280;
-  margin-bottom: 6px;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #0f3d91;
-}
-
-/* Button */
-.auth-submit-btn {
-  margin-top: 10px;
-  padding: 14px;
-  border-radius: 12px;
-  border: none;
-  background: #0f3d91;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.auth-submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.auth-submit-btn:hover:not(:disabled) {
-  background: #0f3d91;
-}
-
-/* Links */
-.auth-switch {
-  text-align: center;
-  font-size: 13px;
-  color: #6b7280;
-}
-
-.auth-switch a {
-  color: #0f3d91;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-/* Error */
-.error-message {
-  background: #fef2f2;
-  color: #b91c1c;
-  padding: 12px 14px;
-  border-radius: 10px;
-  font-size: 13px;
-  margin-bottom: 18px;
-}
-
-/* Success */
-.success-box {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-radius: 14px;
-  padding: 20px;
-}
-
-.success-box h4 {
-  margin-bottom: 6px;
-  color: #15803d;
-}
-
-.success-box p {
-  font-size: 13px;
-  color: #166534;
-}
-
-.success-box .hint {
-  margin-top: 8px;
-  color: #4b5563;
-}
-
-.reset-link {
-  display: inline-block;
-  margin-top: 14px;
-  color: #0f3d91;
-  font-weight: 600;
-}
-`}
-      </style>
-    </>
-    
+    </div>
   );
 };
 

@@ -15,6 +15,7 @@ const HomeHero = () => {
                             https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=75&fm=webp 1920w"
                     alt="Hero Background" 
                     className="home-hero-bg-img"
+                    sizes="100vw"
                     fetchPriority="high"
                     loading="eager"
                     decoding="async"

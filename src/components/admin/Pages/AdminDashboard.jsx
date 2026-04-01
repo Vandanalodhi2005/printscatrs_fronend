@@ -19,7 +19,7 @@ const AdminDashboard = () => {
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
 
-    const analyticsState = useSelector((state) => state.analytics);
+    const analyticsState = useSelector((state) => state.analytics || {});
     const { loading, analytics, error } = analyticsState;
 
     useEffect(() => {

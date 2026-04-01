@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import './LiveChat.css';
 
 const LiveChat = () => {
+    const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
         {
@@ -13,6 +15,13 @@ const LiveChat = () => {
     ]);
     const [inputMessage, setInputMessage] = useState('');
     const inputRef = useRef(null);
+
+    // Hidden pages list
+    const hiddenPages = ['/refund-return-policy', '/return-exchange-policy'];
+
+    if (hiddenPages.includes(location.pathname)) {
+        return null;
+    }
 
     useEffect(() => {
         const openHandler = () => setIsOpen(true);
